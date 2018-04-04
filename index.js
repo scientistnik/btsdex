@@ -1,0 +1,1 @@
+module.exports = require('./dist/bitshares.js').default
