@@ -28,7 +28,7 @@ export default class BitShares {
   }
 
   constructor(accountName, activeKey, feeSymbol = 'bts') {
-    this.activeKey = PrivateKey.fromWif(activeKey);
+    //this.activeKey = PrivateKey.fromWif(activeKey);
     this.initPromise = Promise.all([BitShares.accounts[accountName], BitShares.assets[feeSymbol]]).then(params => {
       [this.account, this.feeAsset] = params;
     });
