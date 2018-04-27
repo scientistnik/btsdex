@@ -21,7 +21,7 @@ const BitShares = require('btsdex')
 
 Example initialization:
 ```js
-BitShares.init({node:'wss://bitshares.openledger.info/ws'})
+BitShares.init('wss://bitshares.openledger.info/ws')
 ```
 After initialization, you can connect:
 ```js
@@ -38,7 +38,7 @@ BitShares.subscribe('connected',functionToCall)
 
 After connection, you may call public api methods. For example `BitShares.db` return wrapper for [database API](http://docs.bitshares.org/api/database.html):
 ```js
-BitShares.db.get_objects("1.3.0")
+BitShares.db.get_objects(["1.3.0"])
 BitShares.db.list_assets("BTS",100)
 ```
 `BitShares.history` is wrapper for [history API](http://docs.bitshares.org/api/history.html):
@@ -65,7 +65,7 @@ bot.cancelOrder(id)
 const BitShares = require('btsdex')
 KEY = 'privateActiveKey'
 
-BitShares.init({node:'wss://bitshares.openledger.info/ws'})
+BitShares.init('wss://bitshares.openledger.info/ws')
 
 async function startAfterConnected() {
   let bot = new BitShares('trade-bot',KEY)
