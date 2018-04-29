@@ -81,6 +81,8 @@ async function startAfterConnected() {
 BitShares.subscribe('connected',startAfterConnected)
 BitShares.connect()
 ```
+## Documentation
+For more information, look [wiki](https://github.com/scientistnik/btsdex/wiki).
 
 ## Contributing
 
