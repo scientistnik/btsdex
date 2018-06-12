@@ -13,8 +13,9 @@
   "author": "scientistnik",
   "license": "MIT",
   "dependencies": {
+    "@babel/runtime": "^7.0.0-0",
     "bitsharesjs": "^1.5.8",
-    "@babel/runtime": "^7.0.0-0"
+    "lzma": "^2.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-0",
