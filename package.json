@@ -4,7 +4,7 @@
   "description": "Package for work with BitShares DEX",
   "main": "index.js",
   "scripts": {
-    "dev": "babel lib -d dist --watch",
+    "dev": "nodemon --exec 'npm' run build --watch lib --delay 3",
     "build": "npx babel lib -d dist"
   },
   "keywords": [
@@ -13,17 +13,14 @@
   "author": "scientistnik",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.0.0-0",
     "bitsharesjs": "^1.5.8",
     "lzma": "^2.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-0",
-    "@babel/core": "^7.0.0-0",
-    "@babel/plugin-proposal-class-properties": "^7.0.0-0",
-    "@babel/plugin-transform-runtime": "^7.0.0-0",
-    "@babel/preset-env": "^7.0.0-0",
-    "@babel/preset-stage-2": "^7.0.0-0",
-    "@babel/runtime": "^7.0.0-0"
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.17.5"
   }
 }
