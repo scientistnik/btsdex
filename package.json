@@ -1,6 +1,6 @@
 {
   "name": "btsdex",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Package for work with BitShares DEX",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "author": "scientistnik",
   "license": "MIT",
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "bitsharesjs": "^1.5.8",
     "lzma": "^2.3.2"
   },
