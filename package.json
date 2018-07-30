@@ -1,6 +1,6 @@
 {
   "name": "btsdex",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Package for work with BitShares DEX",
   "main": "index.js",
   "scripts": {
