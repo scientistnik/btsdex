@@ -2,3 +2,4 @@
 /node_modules/
 package-lock.json
 /dist/
+/tests/test-config.json
