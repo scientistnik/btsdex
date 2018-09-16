@@ -1,1 +1,4 @@
 /lib/
+/docs/
+/browserify/
+.env

@@ -1,11 +1,18 @@
 {
   "name": "btsdex",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "description": "Package for work with BitShares DEX",
   "main": "index.js",
+  "bin": {
+    "btsdex": "./cli.js"
+  },
   "scripts": {
-    "dev": "nodemon --exec 'npm' run build --watch lib --delay 3",
-    "build": "npx babel lib -d dist"
+    "dev": "nodemon --exec 'npm' run build:babel --watch lib",
+    "build": "npm run build:babel && npm run browserify",
+    "build:babel": "babel lib -d dist",
+    "browserify": "browserify --full-paths index.js --standalone BitShares -o browserify/btsdex.js -d",
+    "postbrowserify": "uglifyjs --compress --mangle --sequences --drop_console --output browserify/btsdex.min.js -- browserify/btsdex.js",
+    "test": "mocha --timeout 10000"
   },
   "keywords": [
     "bitshares"
@@ -23,6 +30,10 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
-    "nodemon": "^1.17.5"
+    "browserify": "^16.2.2",
+    "dotenv": "^6.0.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.17.5",
+    "uglify-js": "^3.4.9"
   }
 }

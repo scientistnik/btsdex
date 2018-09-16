@@ -3,3 +3,4 @@
 package-lock.json
 /dist/
 /tests/test-config.json
+.env

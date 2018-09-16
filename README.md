@@ -66,9 +66,10 @@ const BitShares = require('btsdex')
 KEY = 'privateActiveKey'
 
 BitShares.init('wss://bitshares.openledger.info/ws')
+BitShares.subscribe('connected', startAfterConnected)
 
 async function startAfterConnected() {
-  let bot = new BitShares('trade-bot',KEY)
+  let bot = new BitShares('trade-bot', KEY)
 
   let iam = await BitShares.accounts['trade-bot'];
   let orders = await BitShares.db.get_full_accounts([iam.id],false);
@@ -77,16 +78,15 @@ async function startAfterConnected() {
   let order = orders[0].sell_price;
   console.log(order)
 }
-
-BitShares.subscribe('connected',startAfterConnected)
-BitShares.connect()
 ```
 ## Documentation
-For more information, look [wiki](https://github.com/scientistnik/btsdex/wiki).
+For more information, look [wiki](https://scientistnik.github.io/btsdex) or in `docs`-foler.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub.
+Bug reports and pull requests are welcome on GitHub. 
+
+`master`-branch use for new release. For new feature use `dev` branch. All pull requests are accepted in `dev` branch.
 
 ## License
 
