@@ -18,28 +18,22 @@
   * orders()
 
 ## Static methods
-### init()
-Signature:
-```js
-static init(node = "wss://bitshares.openledger.info/ws", autoconnect = false)
-``` 
+ 
 ### connect()
 Signature:
 ```js
-static async connect()
+static async connect(node, autoreconnect)
 ```
 #### Example
 ```js
 const BitShares = require('btsdex');
 
+start()
 async function start() {
-  BitShares.init();
   await BitShares.connect();
 
   // Do something...
 }
-
-start()
 ```
 ### subscribe()
 Signature:
@@ -76,8 +70,6 @@ This method need if you know only login and password. And you need active and me
 ```js
 const BitShares = require("btsdex");
 
-BitShares.init("wss://bitshares.openledger.info/ws");
-
 keys = BitShares.generateKeys('trade-bot', 'password', ['owner','active','memo']);
 console.log(keys); //{ privKeys:{ owner:..., active:..., memo:...}, pubKeys:{ owner:..., active:..., memo:...}}
 
@@ -93,6 +85,7 @@ static async ticker(baseSymbol, quoteSymbol)
 ```js
 const BitShares = require('btsdex');
 
+start()
 async function start() {
   BitShares.init();
   await BitShares.connect();
@@ -100,8 +93,6 @@ async function start() {
   let ticker = await BitShares.ticker('usd', 'bts');
   console.log(ticker); // { latest: '0.3857908',lowest_ask: ... }
 }
-
-start()
 ```
 ### tradeHistory()
 Signature:
@@ -112,6 +103,7 @@ static async tradeHistory(quoteSymbol, baseSymbol, startDate, stopDate, bucketSe
 ```js
 const BitShares = require('btsdex');
 
+start()
 async function start() {
   BitShares.init();
   await BitShares.connect();
@@ -123,8 +115,6 @@ async function start() {
   let data = await BitShares.tradeHistory("usd","bts", start, stop, 60 * 60 * 24)); 
   console.log(data); // [{high_base:..., low_quote:...}, {...}]
 }
-
-start()
 ```
 ## Object methods
 ### constructor()
@@ -151,7 +141,6 @@ async balances()
 ```js
 const BitShares = require('btsdex');
 
-BitShares.init();
 BitShares.subscribe('connected', start);
 
 async function start() {
@@ -168,7 +157,6 @@ async buy(buySymbol, baseSymbol, amount, price, fill_or_kill = false, expire = "
 ```js
 const BitShares = require('btsdex');
 
-BitShares.init();
 BitShares.subscribe('connected', start);
 
 async function start() {
@@ -185,7 +173,6 @@ async sell(sellSymbol, baseSymbol, amount, price, fill_or_kill = false, expire =
 ```js
 const BitShares = require('btsdex');
 
-BitShares.init();
 BitShares.subscribe('connected', start);
 
 async function start() {
@@ -202,8 +189,8 @@ async transfer(toName, assetSymbol, amount, memo)
 ```js
 const BitShares = require("btsdex");
 
+start()
 async function start() {
-  BitShares.init("wss://bitshares.openledger.info/ws");
   await BitShares.connect();
 
   let bot = new BitShares("name-account", "yourPrivateActiveKey");
@@ -225,7 +212,6 @@ async orders()
 ```js
 const BitShares = require('btsdex');
 
-BitShares.init();
 BitShares.subscribe('connected', start);
 
 async function start() {

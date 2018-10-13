@@ -7,10 +7,8 @@ var tx;
 async function start() {
   BitShares.subscribe("block",update)
 
-  let bot = new BitShares.login("trade-bot", "<privateActiveKey>");
+  let bot = new BitShares.login("trade-bot", "<password>");
   [tx] = await bot.transfer("scientistnik", "usd", 10)
-  
-  startBlockNum = tx.block_num;
 }
 
 async function update([newBlock]) {
