@@ -33,11 +33,13 @@ function initializeContext(context) {
 }
 
 
-function connect(autoreconnect = true) {
-  let node = process.argv.includes("--testnet") ? "wss://node.testnet.bitshares.eu" : undefined
+function connect(autoreconnect = true) {  
+  let 
+    node = process.argv.includes("--node") 
+              ? process.argv[process.argv.indexOf("--node") + 1] 
+              : (process.argv.includes("--testnet") ? "wss://node.testnet.bitshares.eu" : BitShares.node)
 
-  BitShares.init(node, false, autoreconnect)
-  return BitShares.connect().then(() => console.log(`Connected to API node: ${node}`))
+  return BitShares.connect(node, autoreconnect).then(() => console.log(`Connected to API node: ${node}`))
 }
 
 function showError(error) {

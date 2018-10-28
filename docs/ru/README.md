@@ -144,6 +144,11 @@ tx.add(operation1)
 tx.add(operation2)
 ...
 ```
+Можно узнать стоимость транзакций:
+```js
+let cost = await tx.cost()
+console.log(cost) // { BTS: 1.234 }
+```
 После этого транзакцию можно отправлять:
 ```js
 await tx.broadcast()
@@ -294,6 +299,11 @@ $ btsdex
 Эта команда пытается подключиться к основной сети BitShares. Если надо подключиться к тестовой сети, попробуйте это:
 ```js
 $ btsdex --testnet
+>|
+```
+или воспользуйтесь ключом `--node`:
+```js
+$ btsdex --node wss://api.bts.blckchnd.com
 >|
 ```
 
