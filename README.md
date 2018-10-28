@@ -1,4 +1,5 @@
 # btsdex
+
 Package for work with BitShares DEX.
 The main class in the package is `BitShares`. All you need is in it. There are a couple more helper classes, but they are not really designed for use outside of the `BitShares` class.
 
@@ -143,6 +144,12 @@ tx.add(operation1)
 tx.add(operation2)
 ...
 ```
+If you want to know the cost of the transaction:
+```js
+let cost = await tx.cost()
+console.log(cost) // { BTS: 1.234 }
+```
+
 After broadcast transaction:
 ```js
 await tx.broadcast()
@@ -293,6 +300,11 @@ $ btsdex
 This command try autoconnect to mainnet BitShares. If you want to connect on testnet, try this:
 ```js
 $ btsdex --testnet
+>|
+```
+or use `--node` key:
+```js
+$ btsdex --node wss://api.bts.blckchnd.com
 >|
 ```
 
