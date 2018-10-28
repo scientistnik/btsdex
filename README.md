@@ -409,7 +409,7 @@ For more information, look [wiki](https://scientistnik.github.io/btsdex) or in `
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub. 
+Bug reports and pull requests are welcome on GitHub. For communication, you can use the Telegram-channel [btdex](https://t.me/btsdex).
 
 `master`-branch use for new release. For new feature use `dev` branch. All pull requests are accepted in `dev` branch.
 
