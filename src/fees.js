@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js"
+import BigNumber from "bignumber.js";
 
 //https://github.com/bitshares/bitshares-core/blob/master/libraries/chain/include/graphene/chain/protocol/operations.hpp#L44-L97
 const operations = [
@@ -6,7 +6,7 @@ const operations = [
   "limit_order_create",
   "limit_order_cancel",
   "call_order_update",
-  "fill_order",           // VIRTUAL
+  "fill_order", // VIRTUAL
   "account_create",
   "account_update",
   "account_whitelist",
@@ -44,36 +44,38 @@ const operations = [
   "transfer_to_blind",
   "blind_transfer",
   "transfer_from_blind",
-  "asset_settle_cancel",  // VIRTUAL
+  "asset_settle_cancel", // VIRTUAL
   "asset_claim_fees",
-  "fba_distribute",       // VIRTUAL
+  "fba_distribute", // VIRTUAL
   "bid_collateral",
   "execute_bid"
-]
+];
 
 export default class Fees {
   static init(db) {
-    this.db = db
+    this.db = db;
 
-    if (this.instance)
-      return this.instance
+    if (this.instance) return this.instance;
 
-    this.instance =  new this();
-    return this.instance
+    this.instance = new this();
+    return this.instance;
   }
 
   async update() {
     let obj = (await Fees.db.get_global_properties()).parameters.current_fees;
     obj.parameters.forEach((param, index) => {
-      this[operations[index]] = param[1].fee ? Number(BigNumber(param[1].fee)
-        .div(10 ** 5).toString()) : param[1]
-    })
+      this[operations[index]] = param[1].fee
+        ? Number(
+            BigNumber(param[1].fee)
+              .div(10 ** 5)
+              .toString()
+          )
+        : param[1];
+    });
   }
 
   operations(index) {
-    if (index)
-      return operations[index];
-    else
-      return operations;
+    if (index) return operations[index];
+    else return operations;
   }
 }

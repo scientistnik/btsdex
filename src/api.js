@@ -1,4 +1,4 @@
-import {Apis} from "bitsharesjs-ws";
+import { Apis } from "bitsharesjs-ws";
 
 export default class Api {
   static new(api) {
@@ -18,7 +18,10 @@ export default class Api {
 
     return function() {
       //console.log(`api call: ${name}(${[...arguments]})`)
-      return apis.instance()[api]().exec(name,[...arguments])
-    }
+      return apis
+        .instance()
+        [api]()
+        .exec(name, [...arguments]);
+    };
   }
 }
