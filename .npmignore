@@ -1,4 +1,6 @@
-/lib/
-/docs/
-/browserify/
+build
+docs
+packages
+src
+test
 .env
