@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import { database } from "btsdex-api";
 
 //https://github.com/bitshares/bitshares-core/blob/master/libraries/chain/include/graphene/chain/protocol/operations.hpp#L44-L97
 const operations = [
@@ -52,17 +53,8 @@ const operations = [
 ];
 
 export default class Fees {
-  static init(db) {
-    this.db = db;
-
-    if (this.instance) return this.instance;
-
-    this.instance = new this();
-    return this.instance;
-  }
-
   async update() {
-    let obj = (await Fees.db.get_global_properties()).parameters.current_fees;
+    let obj = (await database.getGlobalProperties()).parameters.current_fees;
     obj.parameters.forEach((param, index) => {
       this[operations[index]] = param[1].fee
         ? Number(

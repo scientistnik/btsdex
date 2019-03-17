@@ -1,8 +1,9 @@
-export default class Event {
-  static init(bts) {
-    this.bts = bts;
+import { database, history } from "btsdex-api";
+import Account from "./account";
 
-    this.connected = new this(bts.connect);
+class Event {
+  static init(connect) {
+    this.connected = new this(connect);
     this.block = new this(
       this.connected.subscribe,
       this.subscribeBlock.bind(this)
@@ -31,24 +32,24 @@ export default class Event {
   }
 
   static async subscribeBlock() {
-    await this.bts.db.set_subscribe_callback(this.getUpdate.bind(this), false);
+    await database.setSubscribeCallback(this.getUpdate.bind(this), false);
   }
 
   static async subscribeAccount() {
     if (this.account.newSubs.length == 0) return;
 
-    await this.bts.db.get_full_accounts(this.account.newSubs, true);
+    await database.getFullAccounts(this.account.newSubs, true);
     this.account.newSubs = [];
     this.block.unsubscribe(this.bindAccount);
 
     Object.keys(this.account.map).forEach(async accName => {
       let obj = this.account.map[accName];
       if (!obj.id) {
-        obj.id = (await this.bts.accounts[accName]).id;
+        obj.id = (await Account[accName]).id;
       }
 
       if (!obj.history)
-        obj.history = (await this.bts.history.get_account_history(
+        obj.history = (await history.getAccountHistory(
           obj.id,
           "1.11.0",
           1,
@@ -91,12 +92,12 @@ export default class Event {
     let updateAcc = new Set();
 
     for (let id of ids) {
-      let name = (await this.bts.accounts.id(id)).name,
+      let name = (await Account.id(id)).name,
         acc = this.account.map[name];
 
       if (!acc.history) acc.history = "1.11.0";
 
-      acc.events = await this.bts.history.get_account_history(
+      acc.events = await history.getAccountHistory(
         id,
         acc.history,
         100,
@@ -153,3 +154,5 @@ export default class Event {
     });
   };
 }
+
+export default Event;

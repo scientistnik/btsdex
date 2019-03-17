@@ -1,27 +1,14 @@
-export default class Account {
-  static init(db) {
-    if (this.instance) return this.instance;
+import { database } from "btsdex-api";
 
-    this.db = db;
-    this.map = {};
-    this.instance = new Proxy(this, this);
-    return this.instance;
-  }
-
-  static get(obj, name) {
-    if (obj[name]) return obj[name];
-
-    return /^1\.2\.\d+$/.test(name) || !isNaN(name)
-      ? this.id(name)
-      : this.getAccout(name);
-  }
+class Account {
+  static map = {};
 
   static async getAccout(_name) {
     let name = _name.toLowerCase();
 
     if (this.map[name]) return this.map[name];
 
-    let acc = await this.db.get_account_by_name(name);
+    let acc = await database.getAccountByName(name);
 
     if (!acc || acc.name !== name)
       throw new Error(
@@ -39,7 +26,7 @@ export default class Account {
 
     if (name) return this.map[name];
 
-    let acc = (await this.db.get_accounts([id]))[0];
+    let acc = (await database.getAccounts([id]))[0];
 
     if (!acc) throw new Error(`Not found account by id ${id}!`);
 
@@ -48,7 +35,7 @@ export default class Account {
   }
 
   static async update() {
-    let allData = await this.db.get_accounts(
+    let allData = await database.getAccounts(
       Object.keys(this.map).map(name => this.map[name].id)
     );
     allData.forEach(rpcData => Object.assign(this.map[rpcData.name], rpcData));
@@ -59,6 +46,16 @@ export default class Account {
   }
 
   async update() {
-    Object.assign(this, (await Account.db.get_accounts([id]))[0]);
+    Object.assign(this, (await database.getAccounts([id]))[0]);
   }
 }
+
+export default new Proxy(Account, {
+  get(obj, name) {
+    if (obj[name]) return obj[name];
+
+    return /^1\.2\.\d+$/.test(name) || !isNaN(name)
+      ? obj.id(name)
+      : obj.getAccout(name);
+  }
+});

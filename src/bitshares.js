@@ -1,12 +1,25 @@
 import Event from "./event.js";
 import Asset from "./asset.js";
 import Account from "./account.js";
-import Api from "./api.js";
 import Fees from "./fees.js";
 import Transaction from "./transaction";
 import { LZMA as lzma } from "lzma/src/lzma-d-min";
 import BigNumber from "bignumber.js";
-import { PrivateKey, PublicKey, Login, Aes } from "bitsharesjs";
+import { PrivateKey, PublicKey, Aes } from "btsdex-ecc";
+import { setAddressPrefix } from "btsdex-ecc";
+import Login from "./AccountLogin";
+import {
+  connect,
+  disconnect,
+  database,
+  history,
+  network,
+  crypto,
+  block,
+  asset,
+  orders,
+  call
+} from "btsdex-api";
 
 class BitShares {
   static node = "wss://bitshares.openledger.info/ws";
@@ -16,18 +29,28 @@ class BitShares {
   static subscribe = Event.subscribe;
   static generateKeys = Login.generateKeys.bind(Login);
 
-  static async connect(node, autoreconnect = BitShares.autoreconnect) {
-    if (BitShares.connectPromise || BitShares.connectedPromise)
-      return Promise.all([
-        BitShares.connectPromise,
-        BitShares.connectedPromise
-      ]);
+  static db = database;
+  static history = history;
+  static network = network;
+  static crypto = crypto;
+  static block = block;
+  static asset = asset;
+  static orders = orders;
+  static call = call;
 
-    if (autoreconnect)
-      Api.getApis().setRpcConnectionStatusCallback(BitShares.statusCallBack);
+  static newTx = Transaction.newTx;
 
-    await (BitShares.connectPromise = BitShares.reconnect(node));
-    await (BitShares.connectedPromise = BitShares.connectedInit());
+  static assets = Asset;
+  static accounts = Account;
+  static fees = Fees;
+
+  static async connect(
+    node = BitShares.node,
+    autoreconnect = BitShares.autoreconnect
+  ) {
+    if (BitShares.connectPromise) return BitShares.connectPromise;
+
+    await (BitShares.connectPromise = BitShares.reconnect(node, autoreconnect));
 
     Event.connectedNotify();
 
@@ -35,54 +58,27 @@ class BitShares {
   }
 
   static disconnect() {
-    BitShares.connectPromise = BitShares.connectedPromise = undefined;
+    BitShares.connectPromise = undefined;
     BitShares.autoreconnect = false;
-    Api.getApis().close();
+    disconnect();
   }
 
-  static async reconnect(node = BitShares.node) {
-    let res = await Api.getApis().instance(node, true).init_promise;
-    BitShares.chain = res[0].network;
+  static async reconnect(node, autoreconnect) {
+    BitShares.chain = await connect(
+      node,
+      undefined,
+      autoreconnect
+    );
+    setAddressPrefix(BitShares.chain.addressPrefix);
     BitShares.node = node;
 
-    return res;
-  }
-
-  static statusCallBack(status) {
-    BitShares.logger.log("WebSocket status:", status);
-    if (BitShares.autoreconnect && status === "closed") {
-      BitShares.logger.log("WebSocket status, try to connect...");
-      setTimeout(() => {
-        BitShares.reconnect()
-          .then(Event.resubscribe.bind(Event))
-          .catch(BitShares.logger.error);
-      }, 2000);
-    }
-  }
-
-  static async connectedInit() {
-    if (!this.connectPromise || this.blockReCall) return;
-
-    this.blockReCall = true;
-
-    this.db = Api.new("db_api");
-    this.history = Api.new("history_api");
-    this.network = Api.new("network_api");
-    //this.crypto = Api.new('crypto_api');
-
-    Transaction.setDB(this.db);
-    this.newTx = Transaction.newTx;
-
-    this.assets = Asset.init(this.db);
-    this.accounts = Account.init(this.db);
-    this.fees = Fees.init(this.db);
-    await this.fees.update();
+    return BitShares.chain;
   }
 
   static async login(
     accountName,
     password,
-    feeSymbol = BitShares.chain.core_asset
+    feeSymbol = BitShares.chain.coreAsset
   ) {
     let acc = await BitShares.accounts[accountName],
       activeKey = PrivateKey.fromSeed(`${accountName}active${password}`),
@@ -108,7 +104,7 @@ class BitShares {
     buffer,
     password,
     accountName,
-    feeSymbol = BitShares.chain.core_asset
+    feeSymbol = BitShares.chain.coreAsset
   ) {
     let backup_buffer = Aes.decrypt_with_checksum(
       PrivateKey.fromSeed(password),
@@ -159,7 +155,7 @@ class BitShares {
   }
 
   static ticker(baseSymbol, quoteSymbol) {
-    return BitShares.db.get_ticker(
+    return database.getTicker(
       baseSymbol.toUpperCase(),
       quoteSymbol.toUpperCase()
     );
@@ -172,7 +168,7 @@ class BitShares {
     stopDate,
     bucketSeconds
   ) {
-    return BitShares.history.get_market_history(
+    return history.getMarketHistory(
       (await BitShares.assets[quoteSymbol]).id,
       (await BitShares.assets[baseSymbol]).id,
       bucketSeconds,
@@ -182,7 +178,7 @@ class BitShares {
   }
 
   static async getLimitOrders(quoteSymbol, baseSymbol, limit = 50) {
-    return BitShares.db.get_limit_orders(
+    return database.getLimitOrders(
       (await BitShares.assets[quoteSymbol]).id,
       (await BitShares.assets[baseSymbol]).id,
       limit > 100 ? 100 : limit
@@ -190,14 +186,14 @@ class BitShares {
   }
 
   static async getOrderBook(quoteSymbol, baseSymbol, limit = 50) {
-    return BitShares.db.get_order_book(
+    return database.getOrderBook(
       (await BitShares.assets[quoteSymbol]).id,
       (await BitShares.assets[baseSymbol]).id,
       limit > 50 ? 50 : limit
     );
   }
 
-  constructor(accountName, activeKey, feeSymbol = BitShares.chain.core_asset) {
+  constructor(accountName, activeKey, feeSymbol = BitShares.chain.coreAsset) {
     if (activeKey) this.activeKey = PrivateKey.fromWif(activeKey);
 
     this.newTx = () => {
@@ -237,10 +233,7 @@ class BitShares {
     let assets = await Promise.all(
       args.map(async asset => (await BitShares.assets[asset]).id)
     );
-    let balances = await BitShares.db.get_account_balances(
-      this.account.id,
-      assets
-    );
+    let balances = await database.getAccountBalances(this.account.id, assets);
     return Promise.all(
       balances.map(balance => BitShares.assets.fromParam(balance))
     );
@@ -282,9 +275,7 @@ class BitShares {
 
   buy = async (...args) => {
     let tx = await this.sendOperation(await this.buyOperation(...args));
-    return (await BitShares.db.get_objects([
-      tx[0].trx.operation_results[0][1]
-    ]))[0];
+    return (await database.getObjects([tx[0].trx.operation_results[0][1]]))[0];
   };
 
   sellOperation = async (
@@ -323,22 +314,18 @@ class BitShares {
 
   sell = async (...args) => {
     let tx = await this.sendOperation(await this.sellOperation(...args));
-    return (await BitShares.db.get_objects([
-      tx[0].trx.operation_results[0][1]
-    ]))[0];
+    return (await database.getObjects([tx[0].trx.operation_results[0][1]]))[0];
   };
 
   orders = async () => {
     await this.initPromise;
-    return (await BitShares.db.get_full_accounts(
-      [this.account.id],
-      false
-    ))[0][1].limit_orders;
+    return (await database.getFullAccounts([this.account.id], false))[0][1]
+      .limit_orders;
   };
 
   getOrder = async id => {
     await this.initPromise;
-    return (await BitShares.db.get_objects([id]))[0];
+    return (await database.getObjects([id]))[0];
   };
 
   cancelOrderOperation = async id => {
@@ -466,6 +453,6 @@ class BitShares {
   };
 }
 
-Event.init(BitShares);
+Event.init(BitShares.connect);
 
 export default BitShares;
