@@ -2,7 +2,6 @@ import assert from "assert";
 import { Signature, PublicKey, hash } from "btsdex-ecc";
 import { getConfig, database, network } from "btsdex-api";
 import { ops, ChainTypes } from "btsdex-serializer";
-//const Buffer = require("safe-buffer").Buffer;
 import { Buffer } from "safe-buffer";
 
 var head_block_time_string, committee_min_review;
