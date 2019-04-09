@@ -4,7 +4,21 @@ const assert = require("assert"),
 
 require("dotenv").config();
 
-describe("BitShares class", () => {
+describe("BitShares class", function() {
+  describe("main test", function() {
+    it.only("subscribe", async function() {
+      this.timeout(10000);
+      await BitShares.connect(process.env.BITSHARES_NODE);
+
+      return new Promise(resolve => {
+        BitShares.subscribe("block", (...args) => {
+          console.log(args);
+          resolve();
+        });
+      });
+    });
+  });
+
   describe("#connect()", () => {
     it("connect", async () => {
       let { connect, disconnect } = BitShares;

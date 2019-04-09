@@ -33,6 +33,7 @@ class Event {
 
   static async subscribeBlock() {
     await database.setSubscribeCallback(this.getUpdate.bind(this), false);
+    await database.getObjects(["2.1.0"]);
   }
 
   static async subscribeAccount() {

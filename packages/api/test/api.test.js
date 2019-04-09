@@ -18,9 +18,26 @@ describe("API", function() {
         throw new Error("Expected object with id 2.0.0");
     });
 
-    it("setSubscribeCallback", async () => {
+    it("setSubscribeCallback", async function() {
+      this.timeout(10000);
+
+      return new Promise(async (resolve, reject) => {
+        await database
+          .setSubscribeCallback((...args) => {
+            console.log(JSON.stringify(args));
+            resolve();
+          }, false)
+          .catch(reject);
+        database.get_objects(["2.1.0"]);
+      });
+    });
+
+    it("setBlockAppliedCallback", function() {
       this.timeout(5000);
-      await database.setSubscribeCallback(() => {}, false);
+
+      return new Promise(async resolve => {
+        database.setBlockAppliedCallback(resolve);
+      });
     });
   });
 });
