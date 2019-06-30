@@ -1,15 +1,21 @@
-import { setLogger, connect, disconnect } from "../lib";
+import {
+  setLogger,
+  connect,
+  disconnect,
+  setNotifyStatusCallback
+} from "../lib";
 
-setLogger();
+setLogger({ info: console.log, debug: console.log });
 
 const servers = [
-    "wss://eu.nodes.bitshares.ws",
+    "wss://btsws.roelandp.nl/ws",
     "wss://bitshares.openledger.info/ws"
   ],
-  timeout = 5000;
+  timeout = 5000,
+  reconnectTimeout = 500;
 
 describe("Connection", function() {
-  describe("connect()", () => {
+  describe("connect()", function() {
     afterEach(() => disconnect().catch(() => {}));
 
     it("without params", done => {
@@ -23,23 +29,44 @@ describe("Connection", function() {
     it("with one server", () => connect(servers[0]));
     it("with several servers", () => connect(servers));
 
-    it("with timeout", done => {
+    it("with timeout", function(done) {
+      this.timeout(5000);
       connect(
         servers,
         0,
-        false
+        null
       )
         .then(() => {
-          throw new Error("");
+          throw new Error("Timeout doesn't work");
         })
         .catch(() => done());
+    });
+
+    it.only("with reconnect timeout", function(done) {
+      let countStatuses = 0;
+      setNotifyStatusCallback(status => {
+        status === "closed" && countStatuses++;
+
+        if (countStatuses === 3) {
+          countStatuses++;
+          disconnect().then(done);
+          return true;
+        }
+
+        return false;
+      });
+      connect(
+        servers,
+        0,
+        100
+      ).catch(error => error);
     });
 
     it("call several times", done => {
       let p1 = connect(
         servers,
         timeout,
-        false
+        reconnectTimeout
       );
       let p2 = connect(servers);
       let p3 = connect(servers);
@@ -56,7 +83,7 @@ describe("Connection", function() {
       connect(
         servers,
         timeout,
-        false
+        5000
       )
     );
 
@@ -77,7 +104,7 @@ describe("Connection", function() {
       let c = connect(
         servers,
         timeout,
-        false
+        5000
       );
       let d = disconnect();
 

@@ -5,8 +5,10 @@ var logger = {
   debug: null
 };
 
-export const setLogger = (info, warn, error, debug) =>
-  (logger = { info, warn, error, debug });
+export const setLogger = (obj = logger) => {
+  let { info, warn, error, debug } = obj;
+  logger = { info, warn, error, debug };
+};
 
 export const info = (...args) => logger.info && logger.info(...args);
 export const warn = (...args) => logger.warn && logger.warn(...args);

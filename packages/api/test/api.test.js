@@ -2,7 +2,7 @@ import { setLogger, connect, disconnect, database, getConfig } from "../lib";
 
 setLogger();
 
-const server = "wss://eu.nodes.bitshares.ws";
+const server = "wss://btsws.roelandp.nl/ws";
 
 describe("API", function() {
   describe("database", function() {
@@ -24,11 +24,11 @@ describe("API", function() {
       return new Promise(async (resolve, reject) => {
         await database
           .setSubscribeCallback((...args) => {
-            console.log(JSON.stringify(args));
+            //console.log(JSON.stringify(args));
             resolve();
           }, false)
           .catch(reject);
-        database.get_objects(["2.1.0"]);
+        database.getObjects(["2.1.0"]);
       });
     });
 
