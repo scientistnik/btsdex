@@ -20,6 +20,13 @@ import {
   call
 } from "btsdex-api";
 
+const getExpireDate = () => {
+  let d = new Date();
+  d.setFullYear(d.getFullYear() + 5);
+
+  return d.toISOString().slice(0, -5);
+};
+
 class BitShares {
   static node = "wss://bitshares.openledger.info/ws";
   static autoreconnect = true;
@@ -258,13 +265,48 @@ class BitShares {
     );
   };
 
+  limitOrderCreateOperation = async (
+    sellSymbol,
+    sellAmount,
+    buySymbol,
+    buyAmount,
+    fill_or_kill = false,
+    expiration = getExpireDate(),
+    extensions = []
+  ) => {
+    if (buyAmount == 0 || sellAmount == 0) throw new Error("Amount equal 0!");
+    await this.initPromise;
+
+    let buyAsset = await BitShares.assets[buySymbol],
+      sellAsset = await BitShares.assets[sellSymbol];
+
+    let params = {
+      fee: this.feeAsset.toParam(),
+      seller: this.account.id,
+      amount_to_sell: sellAsset.toParam(sellAmount),
+      min_to_receive: buyAsset.toParam(buyAmount),
+      fill_or_kill,
+      expiration,
+      extensions
+    };
+
+    return { limit_order_create: params };
+  };
+
+  limitOrderCreate = async (...args) => {
+    let tx = await this.sendOperation(
+      await this.limitOrderCreateOperation(...args)
+    );
+    return (await database.getObjects([tx[0].trx.operation_results[0][1]]))[0];
+  };
+
   buyOperation = async (
     buySymbol,
     baseSymbol,
     amount,
     price,
     fill_or_kill = false,
-    expire = "2020-02-02T02:02:02"
+    expire = getExpireDate()
   ) => {
     await this.initPromise;
 
@@ -303,7 +345,7 @@ class BitShares {
     amount,
     price,
     fill_or_kill = false,
-    expire = "2020-02-02T02:02:02"
+    expire = getExpireDate()
   ) => {
     await this.initPromise;
 
