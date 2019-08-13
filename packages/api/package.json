@@ -1,5 +1,5 @@
 {
-  "name": "btsdex-api",
+  "name": "x4tdex-api",
   "version": "0.7.1",
   "main": "lib/index.js",
   "license": "MIT",
@@ -7,8 +7,8 @@
     "prebuild": "rm lib build -rf",
     "build": "babel src -d lib",
     "postbuild": "yarn browserify && yarn minify",
-    "browserify": "browserify lib/index.js --standalone btsdex-api -o build/btsdex-api.js -d",
-    "minify": "minify build/btsdex-api.js -o  build/btsdex-api.min.js",
+    "browserify": "browserify lib/index.js --standalone x4tdex-api -o build/x4tdex-api.js -d",
+    "minify": "minify build/x4tdex-api.js -o  build/x4tdex-api.min.js",
     "dev": "nodemon --exec yarn build --watch src",
     "test": "mocha --require @babel/register"
   },

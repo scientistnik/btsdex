@@ -6,7 +6,7 @@ get_objects(const vector<object_id_type> &ids)
 ```
 ### Example:
 ```js
-const BitShares = require("btsdex");
+const BitShares = require("x4tdex");
 BitShares.init(config.node);
 BitShares.subscribe('connected', start);
 

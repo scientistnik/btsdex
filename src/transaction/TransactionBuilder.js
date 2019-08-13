@@ -1,7 +1,7 @@
 import assert from "assert";
-import { Signature, PublicKey, hash } from "btsdex-ecc";
-import { getConfig, database, network } from "btsdex-api";
-import { ops, ChainTypes } from "btsdex-serializer";
+import { Signature, PublicKey, hash } from "x4tdex-ecc";
+import { getConfig, database, network } from "x4tdex-api";
+import { ops, ChainTypes } from "x4tdex-serializer";
 import { Buffer } from "safe-buffer";
 
 var head_block_time_string, committee_min_review;

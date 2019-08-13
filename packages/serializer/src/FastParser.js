@@ -1,4 +1,4 @@
-import { PublicKey } from "btsdex-ecc";
+import { PublicKey } from "x4tdex-ecc";
 const Buffer = require("safe-buffer").Buffer;
 
 class FastParser {

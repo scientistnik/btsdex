@@ -1,3 +1,3 @@
-# btsdex-api
+# x4tdex-api
 
 `yarn test`

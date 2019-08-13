@@ -1,10 +1,10 @@
 {
-  "name": "btsdex",
+  "name": "x4tdex",
   "version": "0.7.1",
   "description": "Package for work with BitShares DEX",
   "main": "lib",
   "bin": {
-    "btsdex": "./cli.js"
+    "x4tdex": "./cli.js"
   },
   "scripts": {
     "dev": "nodemon --exec yarn build --watch src",
@@ -12,8 +12,8 @@
     "build": "babel src -d lib",
     "postbuild": "yarn browserify",
     "prebrowserify": "rm build -rf",
-    "browserify": "browserify lib/index.js --standalone BitShares -o build/btsdex.js -d",
-    "postbrowserify": "minify build/btsdex.js -o build/btsdex.min.js",
+    "browserify": "browserify lib/index.js --standalone BitShares -o build/x4tdex.js -d",
+    "postbrowserify": "minify build/x4tdex.js -o build/x4tdex.min.js",
     "test": "mocha --timeout 10000"
   },
   "keywords": [
@@ -26,9 +26,9 @@
     "assert": "^1.4.1",
     "bigi": "^1.4.2",
     "bignumber.js": "^7.2.1",
-    "btsdex-api": "^0.7.1",
-    "btsdex-ecc": "^0.7.0",
-    "btsdex-serializer": "^0.7.1",
+    "x4tdex-api": "^0.7.1",
+    "x4tdex-ecc": "^0.7.0",
+    "x4tdex-serializer": "^0.7.1",
     "bytebuffer": "^5.0.1",
     "lzma": "^2.3.2",
     "safe-buffer": "^5.1.2"

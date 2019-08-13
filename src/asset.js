@@ -1,4 +1,4 @@
-import { database } from "btsdex-api";
+import { database } from "x4tdex-api";
 
 class Asset {
   static map = {};

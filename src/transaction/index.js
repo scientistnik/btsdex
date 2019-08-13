@@ -1,6 +1,6 @@
 //import { TransactionBuilder } from "bitsharesjs";
 import TransactionBuilder from "./TransactionBuilder";
-import { database } from "btsdex-api";
+import { database } from "x4tdex-api";
 
 class Transaction {
   static newTx(keys) {

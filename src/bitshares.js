@@ -5,8 +5,8 @@ import Fees from "./fees.js";
 import Transaction from "./transaction";
 import { LZMA as lzma } from "lzma/src/lzma-d-min";
 import BigNumber from "bignumber.js";
-import { PrivateKey, PublicKey, Aes, key } from "btsdex-ecc";
-import { setAddressPrefix } from "btsdex-ecc";
+import { PrivateKey, PublicKey, Aes, key } from "x4tdex-ecc";
+import { setAddressPrefix } from "x4tdex-ecc";
 import {
   connect,
   disconnect,
@@ -18,7 +18,7 @@ import {
   asset,
   orders,
   call
-} from "btsdex-api";
+} from "x4tdex-api";
 
 class BitShares {
   static node = "wss://bitshares.openledger.info/ws";

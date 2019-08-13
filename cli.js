@@ -24,7 +24,7 @@ function initializeContext(context) {
   });
 
   context.BitShares = BitShares;
-  context.btsdex = BitShares;
+  context.x4tdex = BitShares;
   context.login = BitShares.login.bind(BitShares);
   context.generateKeys = BitShares.generateKeys;
 }

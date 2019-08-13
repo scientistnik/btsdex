@@ -1,5 +1,5 @@
 ```js
-const BitShares = require("btsdex"),
+const BitShares = require("x4tdex"),
       {Apis} = require("bitsharesjs-ws");
 
 Apis.setRpcConnectionStatusCallback(statusCallBack)

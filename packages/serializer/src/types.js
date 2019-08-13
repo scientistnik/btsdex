@@ -6,7 +6,7 @@ import fp from "./FastParser";
 import ChainTypes from "./ChainTypes";
 import ObjectId from "./ObjectId";
 
-import { PublicKey, Address, getAddressPrefix } from "btsdex-ecc";
+import { PublicKey, Address, getAddressPrefix } from "x4tdex-ecc";
 
 import ByteBuffer from "bytebuffer";
 const Buffer = require("safe-buffer").Buffer;

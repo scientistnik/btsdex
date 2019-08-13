@@ -1,4 +1,4 @@
-import { database, history } from "btsdex-api";
+import { database, history } from "x4tdex-api";
 import Account from "./account";
 
 class Event {

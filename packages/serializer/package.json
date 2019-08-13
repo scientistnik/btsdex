@@ -1,5 +1,5 @@
 {
-  "name": "btsdex-serializer",
+  "name": "x4tdex-serializer",
   "version": "0.7.1",
   "main": "lib",
   "license": "MIT",
@@ -9,8 +9,8 @@
     "build": "babel src -d lib",
     "postbuild": "yarn browserify",
     "prebrowserify": "rm -rf build",
-    "browserify": "browserify lib/index.js --standalone btsdex-serializer -o build/btsdex-serializer.js -d",
-    "postbrowserify": "minify build/btsdex-serializer.js -o build/btsdex-serializer.min.js"
+    "browserify": "browserify lib/index.js --standalone x4tdex-serializer -o build/x4tdex-serializer.js -d",
+    "postbrowserify": "minify build/x4tdex-serializer.js -o build/x4tdex-serializer.min.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -22,6 +22,6 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "btsdex-ecc": "^0.7.0"
+    "x4tdex-ecc": "^0.7.0"
   }
 }

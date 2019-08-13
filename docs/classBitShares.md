@@ -1,12 +1,12 @@
 # Index
-* [Static methods](https://github.com/scientistnik/btsdex/wiki/class-BitShares#static-methods)
+* [Static methods](https://github.com/scientistnik/x4tdex/wiki/class-BitShares#static-methods)
   * init()
   * connect()
   * subscribe()
   * generateKeys()
   * ticker()
   * tradeHistory()
-* [Object methods](https://github.com/scientistnik/btsdex/wiki/class-BitShares#object-methods)
+* [Object methods](https://github.com/scientistnik/x4tdex/wiki/class-BitShares#object-methods)
   * constructor()
   * setFeeAsset()
   * setMemoKey()
@@ -26,7 +26,7 @@ static async connect(node, autoreconnect)
 ```
 #### Example
 ```js
-const BitShares = require('btsdex');
+const BitShares = require('x4tdex');
 
 start()
 async function start() {
@@ -47,7 +47,7 @@ Now have events:
 
 #### Example
 ```js
-const BitShares = require("btsdex");
+const BitShares = require("x4tdex");
 
 BitShares.init("wss://bitshares.openledger.info/ws");
 
@@ -68,7 +68,7 @@ This method need if you know only login and password. And you need active and me
 
 #### Example
 ```js
-const BitShares = require("btsdex");
+const BitShares = require("x4tdex");
 
 keys = BitShares.generateKeys('trade-bot', 'password', ['owner','active','memo']);
 console.log(keys); //{ privKeys:{ owner:..., active:..., memo:...}, pubKeys:{ owner:..., active:..., memo:...}}
@@ -83,7 +83,7 @@ static async ticker(baseSymbol, quoteSymbol)
 ```
 #### Example
 ```js
-const BitShares = require('btsdex');
+const BitShares = require('x4tdex');
 
 start()
 async function start() {
@@ -101,7 +101,7 @@ static async tradeHistory(quoteSymbol, baseSymbol, startDate, stopDate, bucketSe
 ```
 #### Example
 ```js
-const BitShares = require('btsdex');
+const BitShares = require('x4tdex');
 
 start()
 async function start() {
@@ -139,7 +139,7 @@ async balances()
 ```
 #### Example
 ```js
-const BitShares = require('btsdex');
+const BitShares = require('x4tdex');
 
 BitShares.subscribe('connected', start);
 
@@ -155,7 +155,7 @@ async buy(buySymbol, baseSymbol, amount, price, fill_or_kill = false, expire = "
 ```
 #### Example
 ```js
-const BitShares = require('btsdex');
+const BitShares = require('x4tdex');
 
 BitShares.subscribe('connected', start);
 
@@ -171,7 +171,7 @@ async sell(sellSymbol, baseSymbol, amount, price, fill_or_kill = false, expire =
 ```
 #### Example
 ```js
-const BitShares = require('btsdex');
+const BitShares = require('x4tdex');
 
 BitShares.subscribe('connected', start);
 
@@ -187,7 +187,7 @@ async transfer(toName, assetSymbol, amount, memo)
 ```
 #### Example
 ```js
-const BitShares = require("btsdex");
+const BitShares = require("x4tdex");
 
 start()
 async function start() {
@@ -210,7 +210,7 @@ async orders()
 ```
 #### Example
 ```js
-const BitShares = require('btsdex');
+const BitShares = require('x4tdex');
 
 BitShares.subscribe('connected', start);
 

@@ -1,5 +1,5 @@
 {
-  "name": "btsdex-ecc",
+  "name": "x4tdex-ecc",
   "version": "0.7.0",
   "main": "lib",
   "license": "MIT",
@@ -7,8 +7,8 @@
     "prebuild": "rm -rf lib build",
     "build": "babel src -d lib",
     "postbuild": "yarn browserify && yarn minify",
-    "browserify": "browserify lib/index.js --standalone btsdex-ecc -o build/btsdex-ecc.js -d",
-    "minify": "minify build/btsdex-ecc.js -o build/btsdex-ecc.min.js",
+    "browserify": "browserify lib/index.js --standalone x4tdex-ecc -o build/x4tdex-ecc.js -d",
+    "minify": "minify build/x4tdex-ecc.js -o build/x4tdex-ecc.min.js",
     "dev": "nodemon --exec yarn build --watch src",
     "test": "mocha --require @babel/register"
   },

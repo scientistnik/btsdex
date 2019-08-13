@@ -10,25 +10,25 @@ The `BitShares` class consists of static methods intended for working with the B
 ### If you use `npm`
 This library can be obtained through npm:
 ```
-$ npm install btsdex
+$ npm install x4tdex
 ```
 If you want use [REPL-mode](#repl-mode):
 ```
-$ npm install -g btsdex
+$ npm install -g x4tdex
 ```
 
 ### If you use `browser`
-Include [this](https://github.com/scientistnik/btsdex/releases) in html-file:
+Include [this](https://github.com/scientistnik/x4tdex/releases) in html-file:
 ```
-<script src="btsdex.min.js"></script>
+<script src="x4tdex.min.js"></script>
 ```
 After that in console aviable `BitShares` class.
 
 ## Usage
 
-__btsdex__ package contain class `BitShares`: 
+__x4tdex__ package contain class `BitShares`: 
 ```js
-const BitShares = require('btsdex')
+const BitShares = require('x4tdex')
 ```
 To connect to the BitShares network, you must call `connect` method:
 ```js
@@ -117,7 +117,7 @@ await acc.assetReserve("ABC", 12)
 If you want to send tokens with memo and get `acc` from `constructor` (use `new BitShares()`), then before that you need to set a private memo-key:
 ```js
 bot.setMemoKey(<privateMemoKey>)
-await bot.transfer("scientistnik", "USD", 10, "Thank you for BTSDEX!")
+await bot.transfer("scientistnik", "USD", 10, "Thank you for X4TDEX!")
 ```
 ### Transaction Builder
 
@@ -163,7 +163,7 @@ The account has a lot more operations available than an instance of the bitshare
 
 For example:
 ```js
-let BitShares = require("btsdex")
+let BitShares = require("x4tdex")
 
 BitShares.subscribe("connected", start)
 
@@ -210,14 +210,14 @@ Very often we have to expect, when there will be some action in the blockchain, 
 
 #### Event types
 
-At the moment, __BTSDEX__ has three types of events:
+At the moment, __X4TDEX__ has three types of events:
 * `connected` - works once after connecting to the blockchain;
 * `block` - it works when a new block is created in the blockchain;
 * `account` - occurs when the specified account is changed (balance change).
 
 For example:
 ```js
-const BitShares = require("btsdex");
+const BitShares = require("x4tdex");
 
 BitShares.subscribe('connected', startAfterConnected);
 BitShares.subscribe('block', callEachBlock);
@@ -242,7 +242,7 @@ Another feature of the event is that when you first subscription call the method
 Now it's not necessary to explicitly call `BitShares.connect()`, it's enough to subscribe to the `connected` event.
 
 ```js
-const BitShares = require("btsdex");
+const BitShares = require("x4tdex");
 
 BitShares.subscribe('connected', start);
 
@@ -256,7 +256,7 @@ async function start() {
 The `block` event is triggered when a new block is created in the blockchain. The first event subscription automatically creates a subscription to the `connected` event, and if this is the first subscription, it will cause a connection to the blockchain.
 
 ```js
-const BitShares = require("btsdex");
+const BitShares = require("x4tdex");
 
 BitShares.subscribe('block', newBlock);
 
@@ -280,7 +280,7 @@ The first subscriber to `account` will call a `block` subscription, which in the
 
 Example code:
 ```js
-const BitShares = require("btsdex");
+const BitShares = require("x4tdex");
 
 BitShares.subscribe('account', changeAccount, 'scientistnik');
 
@@ -292,19 +292,19 @@ In all the signed functions, an array of account history objects is transferred,
 
 ### REPL-mode
 
-If you install `btsdex`-package in global storage, you may start `btsdex` exec script:
+If you install `x4tdex`-package in global storage, you may start `x4tdex` exec script:
 ```js
-$ btsdex
+$ x4tdex
 >|
 ```
 This command try autoconnect to mainnet BitShares. If you want to connect on testnet, try this:
 ```js
-$ btsdex --testnet
+$ x4tdex --testnet
 >|
 ```
 or use `--node` key:
 ```js
-$ btsdex --node wss://api.bts.blckchnd.com
+$ x4tdex --node wss://api.bts.blckchnd.com
 >|
 ```
 
@@ -322,7 +322,7 @@ It is nodejs REPL with several variables:
 #### For example
 
 ```js
-$ btsdex
+$ x4tdex
 > assets["bts"].then(console.log)
 ```
 
@@ -330,7 +330,7 @@ $ btsdex
 
 If need call only one request, you may use `--account`, `--asset`, `--block`, `--object`, `--history` or `--transfer` keys in command-line:
 ```js
-$ btsdex --account <'name' or 'id' or 'last number in id'>
+$ x4tdex --account <'name' or 'id' or 'last number in id'>
 {
   "id": "1.2.5992",
   "membership_expiration_date": "1970-01-01T00:00:00",
@@ -338,14 +338,14 @@ $ btsdex --account <'name' or 'id' or 'last number in id'>
   "referrer": "1.2.21",
   ...
 }
-$ btsdex --asset <'symbol' or 'id' or 'last number in id'>
+$ x4tdex --asset <'symbol' or 'id' or 'last number in id'>
 {
   "id": "1.3.0",
   "symbol": "BTS",
   "precision": 5,
   ...
 }
-$ btsdex --block [<number>]
+$ x4tdex --block [<number>]
 block_num: 4636380
 {
   "previous": "0046bedba1317d146dd6afbccff94412d76bf094",
@@ -353,7 +353,7 @@ block_num: 4636380
   "witness": "1.6.41",
   ...
 }
-$ btsdex --object 1.2.3
+$ x4tdex --object 1.2.3
 {
   "id": "1.2.3",
   "membership_expiration_date": "1969-12-31T23:59:59",
@@ -361,7 +361,7 @@ $ btsdex --object 1.2.3
   "referrer": "1.2.3",
   ...
 }
-$ btsdex --history <account> [<limit>] [<start>] [<stop>]
+$ x4tdex --history <account> [<limit>] [<start>] [<stop>]
 [
   {
     "id": "1.11.98179",
@@ -369,7 +369,7 @@ $ btsdex --history <account> [<limit>] [<start>] [<stop>]
       0,
   ...
 }]
-$ btsdex --transfer <from> <to> <amount> <asset> [--key]
+$ x4tdex --transfer <from> <to> <amount> <asset> [--key]
 Transfered <amount> <asset> from '<from>' to '<to>' with memo '<memo>'
 ```
 
@@ -388,7 +388,7 @@ The returned objects contain all the fields that blockchain returns when the giv
 ### Some examples:
 
 ```js
-const BitShares = require('btsdex')
+const BitShares = require('x4tdex')
 KEY = 'privateActiveKey'
 
 BitShares.subscribe('connected', startAfterConnected)
@@ -405,11 +405,11 @@ async function startAfterConnected() {
 }
 ```
 ## Documentation
-For more information, look [wiki](https://scientistnik.github.io/btsdex) or in `docs`-folder.
+For more information, look [wiki](https://scientistnik.github.io/x4tdex) or in `docs`-folder.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub. For communication, you can use the Telegram-channel [btdex](https://t.me/btsdex).
+Bug reports and pull requests are welcome on GitHub. For communication, you can use the Telegram-channel [btdex](https://t.me/x4tdex).
 
 `master`-branch use for new release. For new feature use `dev` branch. All pull requests are accepted in `dev` branch.
 
