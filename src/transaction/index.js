@@ -28,11 +28,15 @@ class Transaction {
     );
   };
 
-  broadcast = async keys => {
+  sign = async keys => {
     await this.tx.set_required_fees();
     (keys ? keys : this.keys).forEach(key =>
       this.tx.add_signer(key, key.toPublicKey().toPublicKeyString())
     );
+  };
+
+  broadcast = async keys => {
+    await this.sign(keys);
     return this.tx.broadcast();
   };
 
