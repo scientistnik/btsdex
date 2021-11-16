@@ -34,9 +34,9 @@ To connect to the BitShares network, you must call `connect` method:
 ```js
 await BitShares.connect();
 ```
-By default, `BitShares` connected to `wss://bitshares.openledger.info/ws`. If you want set another node to connect:
+By default, `BitShares` connected to `wss://dex.iobanker.com/ws`. If you want set another node to connect:
 ```js
-await BitShares.connect("wss://bitshares.openledger.info/ws")
+await BitShares.connect("wss://dex.iobanker.com/ws")
 ```
 
 You can also connect to the network using the [event system](#event-system).
@@ -107,8 +107,8 @@ acc.assetReserve(assetSymbol, amount)
 
 Examples of using:
 ```js
-await acc.buy("OPEN.BTC", "BTS", 0.002, 140000)
-await acc.sell("BTS", "USD", 187, 0.24)
+await acc.buy("HONEST.BTC", "BTS", 0.002, 140000)
+await acc.sell("BTS", "HONEST.USD", 187, 0.24)
 await acc.transfer("scientistnik", "BTS", 10)
 await acc.assetIssue("scientistnik", "ABC", 10)
 await acc.assetReserve("ABC", 12)
@@ -117,7 +117,7 @@ await acc.assetReserve("ABC", 12)
 If you want to send tokens with memo and get `acc` from `constructor` (use `new BitShares()`), then before that you need to set a private memo-key:
 ```js
 bot.setMemoKey(<privateMemoKey>)
-await bot.transfer("scientistnik", "USD", 10, "Thank you for BTSDEX!")
+await bot.transfer("scientistnik", "HONEST.USD", 10, "Thank you for BTSDEX!")
 ```
 ### Transaction Builder
 
@@ -304,7 +304,7 @@ $ btsdex --testnet
 ```
 or use `--node` key:
 ```js
-$ btsdex --node wss://api.bts.blckchnd.com
+$ btsdex --node wss://dex.iobanker.com/ws
 >|
 ```
 
@@ -377,7 +377,7 @@ Transfered <amount> <asset> from '<from>' to '<to>' with memo '<memo>'
 There are a couple more helper classes, such as __BitShares.assets__ and __BitShares.accounts__:
 ```js
 let usd = await BitShares.assets.usd;
-let btc = await BitShares.assets["OPEN.BTS"];
+let btc = await BitShares.assets["HONEST.BTS"];
 let bts = await BitShares.assets["bts"];
 
 let iam = await BitShares.accounts.scientistnik;
