@@ -28,7 +28,7 @@ const getExpireDate = () => {
 };
 
 class BitShares {
-  static node = "wss://bitshares.openledger.info/ws";
+  static node = "wss://dex.iobanker.com/ws";
   static autoreconnect = true;
   static logger = console;
 

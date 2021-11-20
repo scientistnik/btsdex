@@ -8,8 +8,8 @@ import {
 setLogger({ info: console.log, debug: console.log });
 
 const servers = [
-    "wss://btsws.roelandp.nl/ws",
-    "wss://bitshares.openledger.info/ws"
+    "wss://dex.iobanker.com/ws",
+    "wss://btsws.roelandp.nl/ws"
   ],
   timeout = 5000,
   reconnectTimeout = 500;

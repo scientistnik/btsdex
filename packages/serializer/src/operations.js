@@ -583,7 +583,20 @@ export const asset_options = new Serializer("asset_options", {
   whitelist_markets: set(protocol_id_type("asset")),
   blacklist_markets: set(protocol_id_type("asset")),
   description: string,
-  extensions: set(future_extensions)
+  extensions: extension([
+        {
+            name: "reward_percent",
+            type: uint16
+        },
+        {
+            name: "whitelist_market_fee_sharing",
+            type: set(protocol_id_type("account"))
+        },
+        {
+            name: "taker_fee_percent",
+            type: uint16
+        }
+    ])
 });
 
 export const bitasset_options = new Serializer("bitasset_options", {
