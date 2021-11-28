@@ -159,9 +159,11 @@ or
 await acc.broadcast(tx)
 ```
 
-The account has a lot more operations available than an instance of the bitshares class. If you know what fields the transaction you need consists of, you can use the transaction builder for that.
+If you know what fields the transaction you need consists of and the operation name, you can use the transaction builder for executing the transaction.
 
-For example:
+The account property has a lot more operations available than an instance of the bitshares class.
+
+An example of using transaction builder for executing 'account_create' operation:
 ```js
 let BitShares = require("btsdex")
 
@@ -199,7 +201,7 @@ async function start() {
   };
 
   let tx = acc.newTx()
-  tx.account_create(params) // 'account_create' is name operation
+  tx.account_create(params) // 'account_create' is the operation name
   await tx.broadcast()
 }
 ```
@@ -377,7 +379,7 @@ Transfered <amount> <asset> from '<from>' to '<to>' with memo '<memo>'
 There are a couple more helper classes, such as __BitShares.assets__ and __BitShares.accounts__:
 ```js
 let usd = await BitShares.assets.usd;
-let btc = await BitShares.assets["HONEST.BTS"];
+let btc = await BitShares.assets["HONEST.BTC"];
 let bts = await BitShares.assets["bts"];
 
 let iam = await BitShares.accounts.scientistnik;
