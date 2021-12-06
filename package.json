@@ -1,6 +1,6 @@
 {
   "name": "btsdex",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "Package for work with BitShares DEX",
   "main": "lib",
   "bin": {
