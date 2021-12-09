@@ -1,6 +1,6 @@
 {
   "name": "btsdex",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Package for work with BitShares DEX",
   "main": "lib",
   "bin": {
@@ -28,7 +28,7 @@
     "bignumber.js": "^7.2.1",
     "btsdex-api": "^0.7.2",
     "btsdex-ecc": "^0.7.0",
-    "btsdex-serializer": "^0.7.1",
+    "btsdex-serializer": "^0.7.3",
     "bytebuffer": "^5.0.1",
     "lzma": "^2.3.2",
     "safe-buffer": "^5.2.0"
