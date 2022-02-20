@@ -1,6 +1,6 @@
 {
   "name": "btsdex",
-  "version": "0.7.3",
+  "version": "0.7.6",
   "description": "Package for work with BitShares DEX",
   "main": "lib",
   "bin": {
@@ -28,7 +28,7 @@
     "bignumber.js": "^7.2.1",
     "btsdex-api": "^0.7.2",
     "btsdex-ecc": "^0.7.0",
-    "btsdex-serializer": "^0.7.1",
+    "btsdex-serializer": "^0.7.4",
     "bytebuffer": "^5.0.1",
     "lzma": "^2.3.2",
     "safe-buffer": "^5.2.0"
@@ -42,7 +42,7 @@
     "babel-minify": "^0.5.1",
     "browserify": "^16.5.0",
     "dotenv": "^6.0.0",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.19.4"
+    "mocha": "^9.2.1",
+    "nodemon": "^2.0.15"
   }
 }

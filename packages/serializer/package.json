@@ -1,6 +1,6 @@
 {
   "name": "btsdex-serializer",
-  "version": "0.7.1",
+  "version": "0.7.4",
   "main": "lib",
   "license": "MIT",
   "scripts": {
