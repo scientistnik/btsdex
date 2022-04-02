@@ -23,6 +23,13 @@ ChainTypes.object_type = {
   vesting_balance: 13,
   worker: 14,
   balance: 15,
+  htlc: 16,
+  custom_active_authorities: 17,
+  ticket: 18,
+  liquidity_pool: 19,
+  samet_fund: 20,
+  credit_offer: 21,
+  credit_deal: 22,
 };
 
 ChainTypes.impl_object_type = {
@@ -40,6 +47,11 @@ ChainTypes.impl_object_type = {
   chain_property: 11,
   witness_schedule: 12,
   budget_record: 13,
+  special_authority: 14,
+  buyback: 15,
+  fba_accumulator: 16,
+  collateral_bid: 17,
+  credit_deal_summary: 18,
 };
 
 ChainTypes.vote_type = {
@@ -98,6 +110,40 @@ ChainTypes.operations = {
   execute_bid: 46,
   asset_claim_pool: 47,
   asset_update_issuer: 48,
+  htlc_create: 49,
+  htlc_redeem: 50,
+  htlc_redeemed: 51,
+  htlc_extend: 52,
+  htlc_refund: 53,
+  custom_authority_create: 54,
+  custom_authority_update: 55,
+  custom_authority_delete: 56,
+  ticket_create: 57,
+  ticket_update: 58,
+  liquidity_pool_create: 59,
+  liquidity_pool_delete: 60,
+  liquidity_pool_deposit: 61,
+  liquidity_pool_withdraw: 62,
+  liquidity_pool_exchange: 63,
+  samet_fund_create: 64,
+  samet_fund_delete: 65,
+  samet_fund_update: 66,
+  samet_fund_borrow: 67,
+  samet_fund_repay: 68,
+  credit_offer_create: 69,
+  credit_offer_delete: 70,
+  credit_offer_update: 71,
+  credit_offer_accept: 72,
+  credit_deal_repay: 73,
+  credit_deal_expired: 74,
+};
+
+ChainTypes.ticket_type = {
+  liquid: 0,
+  lock_180_days: 1,
+  lock_360_days: 2,
+  lock_720_days: 3,
+  lock_forever: 4,
 };
 
 export default ChainTypes;

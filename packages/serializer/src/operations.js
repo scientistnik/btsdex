@@ -3,7 +3,8 @@ import SerializerImpl from "./serializer";
 
 var {
   //id_type,
-  //varint32,
+  varint32,
+  varuint64,
   uint8,
   uint16,
   uint32,
@@ -33,13 +34,11 @@ future_extensions = types.void;
 When updating generated code
 Replace:  operation = static_variant [
 with:     operation.st_operations = [
-
 Delete:
 public_key = new Serializer(
     "public_key"
     key_data: bytes 33
 )
-
 */
 // Place-holder, their are dependencies on "operation" .. The final list of
 // operations is not avialble until the very end of the generated code.
@@ -349,6 +348,189 @@ export const asset_update_issuer_operation_fee_parameters = new Serializer(
   }
 );
 
+export const htlc_create_operation_fee_parameters = new Serializer(
+  "htlc_create_operation_fee_parameters",
+  {
+    fee: uint64,
+    fee_per_day: uint64,
+  }
+);
+
+export const htlc_redeem_operation_fee_parameters = new Serializer(
+  "htlc_redeem_operation_fee_parameters",
+  {
+    fee: uint64,
+    fee_per_kb: uint64,
+  }
+);
+
+export const htlc_redeemed_operation_fee_parameters = new Serializer(
+  "htlc_redeemed_operation_fee_parameters",
+  {}
+);
+
+export const htlc_extend_operation_fee_parameters = new Serializer(
+  "htlc_extend_operation_fee_parameters",
+  {
+    fee: uint64,
+    fee_per_day: uint64,
+  }
+);
+
+export const htlc_refund_operation_fee_parameters = new Serializer(
+  "htlc_refund_operation_fee_parameters",
+  {}
+);
+
+export const custom_authority_create_operation_fee_parameters = new Serializer(
+  "custom_authority_create_operation_fee_parameters",
+  {
+    basic_fee: uint64,
+    price_per_byte: uint32,
+  }
+);
+
+export const custom_authority_update_operation_fee_parameters = new Serializer(
+  "custom_authority_update_operation_fee_parameters",
+  {
+    basic_fee: uint64,
+    price_per_byte: uint32,
+  }
+);
+
+export const custom_authority_delete_operation_fee_parameters = new Serializer(
+  "custom_authority_delete_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const ticket_create_operation_fee_parameters = new Serializer(
+  "ticket_create_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const ticket_update_operation_fee_parameters = new Serializer(
+  "ticket_update_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const liquidity_pool_create_operation_fee_parameters = new Serializer(
+  "liquidity_pool_create_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const liquidity_pool_delete_operation_fee_parameters = new Serializer(
+  "liquidity_pool_delete_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const liquidity_pool_deposit_operation_fee_parameters = new Serializer(
+  "liquidity_pool_deposit_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const liquidity_pool_withdraw_operation_fee_parameters = new Serializer(
+  "liquidity_pool_withdraw_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const liquidity_pool_exchange_operation_fee_parameters = new Serializer(
+  "liquidity_pool_exchange_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const samet_fund_create_operation_fee_parameters = new Serializer(
+  "samet_fund_create_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const samet_fund_delete_operation_fee_parameters = new Serializer(
+  "samet_fund_delete_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const samet_fund_update_operation_fee_parameters = new Serializer(
+  "samet_fund_update_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const samet_fund_borrow_operation_fee_parameters = new Serializer(
+  "samet_fund_borrow_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const samet_fund_repay_operation_fee_parameters = new Serializer(
+  "samet_fund_repay_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const credit_offer_create_operation_fee_parameters = new Serializer(
+  "credit_offer_create_operation_fee_parameters",
+  {
+    fee: uint64,
+    price_per_kbyte: uint32,
+  }
+);
+
+export const credit_offer_delete_operation_fee_parameters = new Serializer(
+  "credit_offer_delete_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const credit_offer_update_operation_fee_parameters = new Serializer(
+  "credit_offer_update_operation_fee_parameters",
+  {
+    fee: uint64,
+    price_per_kbyte: uint32,
+  }
+);
+
+export const credit_offer_accept_operation_fee_parameters = new Serializer(
+  "credit_offer_accept_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const credit_deal_repay_operation_fee_parameters = new Serializer(
+  "credit_deal_repay_operation_fee_parameters",
+  {
+    fee: uint64,
+  }
+);
+
+export const credit_deal_expired_operation_fee_parameters = new Serializer(
+  "credit_deal_expired_operation_fee_parameters",
+  {}
+);
+
 var fee_parameters = static_variant([
   transfer_operation_fee_parameters,
   limit_order_create_operation_fee_parameters,
@@ -399,6 +581,32 @@ var fee_parameters = static_variant([
   execute_bid_operation_fee_parameters,
   asset_claim_pool_operation_fee_parameters,
   asset_update_issuer_operation_fee_parameters,
+  htlc_create_operation_fee_parameters,
+  htlc_redeem_operation_fee_parameters,
+  htlc_redeemed_operation_fee_parameters,
+  htlc_extend_operation_fee_parameters,
+  htlc_refund_operation_fee_parameters,
+  custom_authority_create_operation_fee_parameters,
+  custom_authority_update_operation_fee_parameters,
+  custom_authority_delete_operation_fee_parameters,
+  ticket_create_operation_fee_parameters,
+  ticket_update_operation_fee_parameters,
+  liquidity_pool_create_operation_fee_parameters,
+  liquidity_pool_delete_operation_fee_parameters,
+  liquidity_pool_deposit_operation_fee_parameters,
+  liquidity_pool_withdraw_operation_fee_parameters,
+  liquidity_pool_exchange_operation_fee_parameters,
+  samet_fund_create_operation_fee_parameters,
+  samet_fund_delete_operation_fee_parameters,
+  samet_fund_update_operation_fee_parameters,
+  samet_fund_borrow_operation_fee_parameters,
+  samet_fund_repay_operation_fee_parameters,
+  credit_offer_create_operation_fee_parameters,
+  credit_offer_delete_operation_fee_parameters,
+  credit_offer_update_operation_fee_parameters,
+  credit_offer_accept_operation_fee_parameters,
+  credit_deal_repay_operation_fee_parameters,
+  credit_deal_expired_operation_fee_parameters,
 ]);
 
 export const fee_schedule = new Serializer("fee_schedule", {
@@ -1104,6 +1312,315 @@ export const asset_update_issuer = new Serializer("asset_update_issuer", {
   extensions: set(future_extensions),
 });
 
+export const htlc_create = new Serializer("htlc_create", {
+  fee: asset,
+  from: protocol_id_type("account"),
+  to: protocol_id_type("account"),
+  amount: asset,
+  preimage_hash: static_variant([bytes(20), bytes(20), bytes(32)]),
+  preimage_size: uint16,
+  claim_period_seconds: uint32,
+  extensions: set(future_extensions),
+});
+
+export const htlc_redeem = new Serializer("htlc_redeem", {
+  fee: asset,
+  htlc_id: protocol_id_type("htlc"),
+  redeemer: protocol_id_type("account"),
+  preimage: bytes(),
+  extensions: set(future_extensions),
+});
+
+export const htlc_redeemed = new Serializer("htlc_redeemed", {
+  fee: asset,
+  htlc_id: protocol_id_type("htlc"),
+  from: protocol_id_type("account"),
+  to: protocol_id_type("account"),
+  amount: asset,
+});
+
+export const htlc_extend = new Serializer("htlc_extend", {
+  fee: asset,
+  htlc_id: protocol_id_type("htlc"),
+  update_issuer: protocol_id_type("account"),
+  seconds_to_add: uint32,
+  extensions: set(future_extensions),
+});
+
+export const htlc_refund = new Serializer("htlc_refund", {
+  fee: asset,
+  htlc_id: protocol_id_type("htlc"),
+  to: protocol_id_type("account"),
+});
+
+export const restriction = new Serializer("restriction", {
+  member_index: varuint64,
+  restriction_type: varuint64,
+  argument: static_variant([
+    void_result,
+    bool,
+    int64,
+    string,
+    time_point_sec,
+    public_key,
+    bytes(32),
+    protocol_id_type("account"),
+    protocol_id_type("asset"),
+    protocol_id_type("force_settlement"),
+    protocol_id_type("committee_member"),
+    protocol_id_type("witness"),
+    protocol_id_type("limit_order"),
+    protocol_id_type("call_order"),
+    protocol_id_type("object"),
+    protocol_id_type("proposal"),
+    protocol_id_type("withdraw_permission"),
+    protocol_id_type("vesting_balance"),
+    protocol_id_type("worker"),
+    protocol_id_type("balance"),
+    set(bool),
+    set(int64),
+    set(string),
+    set(time_point_sec),
+    set(public_key),
+    set(bytes(32)),
+    set(protocol_id_type("account")),
+    set(protocol_id_type("asset")),
+    set(protocol_id_type("force_settlement")),
+    set(protocol_id_type("committee_member")),
+    set(protocol_id_type("witness")),
+    set(protocol_id_type("limit_order")),
+    set(protocol_id_type("call_order")),
+    set(protocol_id_type("object")),
+    set(protocol_id_type("proposal")),
+    set(protocol_id_type("withdraw_permission")),
+    set(protocol_id_type("vesting_balance")),
+    set(protocol_id_type("worker")),
+    set(protocol_id_type("balance")),
+    array(restriction),
+    array(array(restriction)),
+    // fixme: pair<int64_t,std_vector<graphene::protocol::restriction>>
+  ]),
+  extensions: set(future_extensions),
+});
+
+export const custom_authority_create = new Serializer(
+  "custom_authority_create",
+  {
+    fee: asset,
+    account: protocol_id_type("account"),
+    enabled: bool,
+    valid_from: time_point_sec,
+    valid_to: time_point_sec,
+    operation_type: varuint64,
+    auth: authority,
+    restrictions: array(restriction),
+    extensions: set(future_extensions),
+  }
+);
+
+export const custom_authority_update = new Serializer(
+  "custom_authority_update",
+  {
+    fee: asset,
+    account: protocol_id_type("account"),
+    authority_to_update: protocol_id_type("object"),
+    new_enabled: optional(bool),
+    new_valid_from: optional(time_point_sec),
+    new_valid_to: optional(time_point_sec),
+    new_auth: optional(authority),
+    restrictions_to_remove: set(uint16),
+    restrictions_to_add: array(restriction),
+    extensions: set(future_extensions),
+  }
+);
+
+export const custom_authority_delete = new Serializer(
+  "custom_authority_delete",
+  {
+    fee: asset,
+    account: protocol_id_type("account"),
+    authority_to_delete: protocol_id_type("object"),
+    extensions: set(future_extensions),
+  }
+);
+
+export const ticket_create = new Serializer("ticket_create", {
+  fee: asset,
+  account: protocol_id_type("account"),
+  target_type: varuint64,
+  amount: asset,
+  extensions: set(future_extensions),
+});
+
+export const ticket_update = new Serializer("ticket_update", {
+  fee: asset,
+  ticket: protocol_id_type("ticket"),
+  account: protocol_id_type("account"),
+  target_type: varuint64,
+  amount_for_new_target: optional(asset),
+  extensions: set(future_extensions),
+});
+
+export const liquidity_pool_create = new Serializer("liquidity_pool_create", {
+  fee: asset,
+  account: protocol_id_type("account"),
+  asset_a: protocol_id_type("asset"),
+  asset_b: protocol_id_type("asset"),
+  share_asset: protocol_id_type("asset"),
+  taker_fee_percent: uint16,
+  withdrawal_fee_percent: uint16,
+  extensions: set(future_extensions),
+});
+
+export const liquidity_pool_delete = new Serializer("liquidity_pool_delete", {
+  fee: asset,
+  account: protocol_id_type("account"),
+  pool: protocol_id_type("liquidity_pool"),
+  extensions: set(future_extensions),
+});
+
+export const liquidity_pool_deposit = new Serializer("liquidity_pool_deposit", {
+  fee: asset,
+  account: protocol_id_type("account"),
+  pool: protocol_id_type("liquidity_pool"),
+  amount_a: asset,
+  amount_b: asset,
+  extensions: set(future_extensions),
+});
+
+export const liquidity_pool_withdraw = new Serializer(
+  "liquidity_pool_withdraw",
+  {
+    fee: asset,
+    account: protocol_id_type("account"),
+    pool: protocol_id_type("liquidity_pool"),
+    share_amount: asset,
+    extensions: set(future_extensions),
+  }
+);
+
+export const liquidity_pool_exchange = new Serializer(
+  "liquidity_pool_exchange",
+  {
+    fee: asset,
+    account: protocol_id_type("account"),
+    pool: protocol_id_type("liquidity_pool"),
+    amount_to_sell: asset,
+    min_to_receive: asset,
+    extensions: set(future_extensions),
+  }
+);
+
+export const samet_fund_create = new Serializer("samet_fund_create", {
+  fee: asset,
+  owner_account: protocol_id_type("account"),
+  asset_type: protocol_id_type("asset"),
+  balance: int64,
+  fee_rate: uint32,
+  extensions: set(future_extensions),
+});
+
+export const samet_fund_delete = new Serializer("samet_fund_delete", {
+  fee: asset,
+  owner_account: protocol_id_type("account"),
+  fund_id: protocol_id_type("samet_fund"),
+  extensions: set(future_extensions),
+});
+
+export const samet_fund_update = new Serializer("samet_fund_update", {
+  fee: asset,
+  owner_account: protocol_id_type("account"),
+  fund_id: protocol_id_type("samet_fund"),
+  delta_amount: optional(asset),
+  new_fee_rate: optional(uint32),
+  extensions: set(future_extensions),
+});
+
+export const samet_fund_borrow = new Serializer("samet_fund_borrow", {
+  fee: asset,
+  borrower: protocol_id_type("account"),
+  fund_id: protocol_id_type("samet_fund"),
+  borrow_amount: asset,
+  extensions: set(future_extensions),
+});
+
+export const samet_fund_repay = new Serializer("samet_fund_repay", {
+  fee: asset,
+  account: protocol_id_type("account"),
+  fund_id: protocol_id_type("samet_fund"),
+  repay_amount: asset,
+  fund_fee: asset,
+  extensions: set(future_extensions),
+});
+
+export const credit_offer_create = new Serializer("credit_offer_create", {
+  fee: asset,
+  owner_account: protocol_id_type("account"),
+  asset_type: protocol_id_type("asset"),
+  balance: int64,
+  fee_rate: uint32,
+  max_duration_seconds: uint32,
+  min_deal_amount: int64,
+  enabled: bool,
+  auto_disable_time: time_point_sec,
+  acceptable_collateral: map(protocol_id_type("asset"), price),
+  acceptable_borrowers: map(protocol_id_type("account"), int64),
+  extensions: set(future_extensions),
+});
+
+export const credit_offer_delete = new Serializer("credit_offer_delete", {
+  fee: asset,
+  owner_account: protocol_id_type("account"),
+  offer_id: protocol_id_type("credit_offer"),
+  extensions: set(future_extensions),
+});
+
+export const credit_offer_update = new Serializer("credit_offer_update", {
+  fee: asset,
+  owner_account: protocol_id_type("account"),
+  offer_id: protocol_id_type("credit_offer"),
+  delta_amount: optional(asset),
+  fee_rate: optional(uint32),
+  max_duration_seconds: optional(uint32),
+  min_deal_amount: optional(int64),
+  enabled: optional(bool),
+  auto_disable_time: optional(time_point_sec),
+  acceptable_collateral: optional(map(protocol_id_type("asset"), price)),
+  acceptable_borrowers: optional(map(protocol_id_type("account"), int64)),
+  extensions: set(future_extensions),
+});
+
+export const credit_offer_accept = new Serializer("credit_offer_accept", {
+  fee: asset,
+  borrower: protocol_id_type("account"),
+  offer_id: protocol_id_type("credit_offer"),
+  borrow_amount: asset,
+  collateral: asset,
+  max_fee_rate: uint32,
+  min_duration_seconds: uint32,
+  extensions: set(future_extensions),
+});
+
+export const credit_deal_repay = new Serializer("credit_deal_repay", {
+  fee: asset,
+  account: protocol_id_type("account"),
+  deal_id: protocol_id_type("credit_deal"),
+  repay_amount: asset,
+  credit_fee: asset,
+  extensions: set(future_extensions),
+});
+
+export const credit_deal_expired = new Serializer("credit_deal_expired", {
+  fee: asset,
+  deal_id: protocol_id_type("credit_deal"),
+  offer_id: protocol_id_type("credit_offer"),
+  offer_owner: protocol_id_type("account"),
+  borrower: protocol_id_type("account"),
+  unpaid_amount: asset,
+  collateral: asset,
+  fee_rate: uint32,
+});
+
 operation.st_operations = [
   transfer,
   limit_order_create,
@@ -1154,6 +1671,32 @@ operation.st_operations = [
   execute_bid,
   asset_claim_pool,
   asset_update_issuer,
+  htlc_create,
+  htlc_redeem,
+  htlc_redeemed,
+  htlc_extend,
+  htlc_refund,
+  custom_authority_create,
+  custom_authority_update,
+  custom_authority_delete,
+  ticket_create,
+  ticket_update,
+  liquidity_pool_create,
+  liquidity_pool_delete,
+  liquidity_pool_deposit,
+  liquidity_pool_withdraw,
+  liquidity_pool_exchange,
+  samet_fund_create,
+  samet_fund_delete,
+  samet_fund_update,
+  samet_fund_borrow,
+  samet_fund_repay,
+  credit_offer_create,
+  credit_offer_delete,
+  credit_offer_update,
+  credit_offer_accept,
+  credit_deal_repay,
+  credit_deal_expired,
 ];
 
 export const transaction = new Serializer("transaction", {
