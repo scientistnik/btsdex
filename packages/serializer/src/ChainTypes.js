@@ -1,9 +1,9 @@
 let ChainTypes = {};
 
 ChainTypes.reserved_spaces = {
-    relative_protocol_ids: 0,
-    protocol_ids: 1,
-    implementation_ids: 2
+  relative_protocol_ids: 0,
+  protocol_ids: 1,
+  implementation_ids: 2,
 };
 
 ChainTypes.object_type = {
@@ -55,9 +55,9 @@ ChainTypes.impl_object_type = {
 };
 
 ChainTypes.vote_type = {
-    committee: 0,
-    witness: 1,
-    worker: 2
+  committee: 0,
+  witness: 1,
+  worker: 2,
 };
 
 ChainTypes.operations = {

@@ -4,9 +4,9 @@ const assert = require("assert"),
 
 require("dotenv").config();
 
-describe("BitShares class", function() {
-  describe("main test", function() {
-    it.only("subscribe", async function() {
+describe("BitShares class", function () {
+  describe("main test", function () {
+    it.only("subscribe", async function () {
       this.timeout(10000);
       await BitShares.connect(process.env.BITSHARES_NODE);
 

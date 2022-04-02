@@ -14,13 +14,18 @@
     "prebrowserify": "rm -rf build",
     "browserify": "browserify lib/index.js --standalone BitShares -o build/btsdex.js -d",
     "postbrowserify": "minify build/btsdex.js -o build/btsdex.min.js",
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000",
+    "style": "prettier --check src",
+    "style-all": "prettier --check src packages/api/src packages/ecc/src packages/serializer/src"
   },
   "keywords": [
     "bitshares"
   ],
   "author": "scientistnik",
   "license": "MIT",
+  "prettier": {
+    "arrowParens": "avoid"
+  },
   "dependencies": {
     "@babel/runtime": "^7.7.4",
     "assert": "^1.5.0",
@@ -43,6 +48,7 @@
     "browserify": "^16.5.0",
     "dotenv": "^6.0.0",
     "mocha": "^9.2.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prettier": "2.6.1"
   }
 }

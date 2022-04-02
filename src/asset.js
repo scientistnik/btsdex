@@ -69,5 +69,5 @@ export default new Proxy(Asset, {
     return /^1\.3\.\d+$/.test(name) || !isNaN(name)
       ? obj.id(name)
       : obj.getAsset(name);
-  }
+  },
 });

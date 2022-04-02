@@ -3,7 +3,7 @@ export const METHODS_WITH_CALLBACK = [
   "set_pending_transaction_callback",
   "subscribe_to_market",
   "set_block_applied_callback",
-  "broadcast_transaction_with_callback"
+  "broadcast_transaction_with_callback",
 ];
 
 export const APIs = {
@@ -12,21 +12,21 @@ export const APIs = {
     name: "database",
     methods: [
       /* many function names */
-    ]
+    ],
   },
   network: {
     id: null,
     name: "network_broadcast",
     methods: [
       /* many function names */
-    ]
+    ],
   },
   block: { id: null, name: "block", methods: ["get_blocks"] },
   orders: { id: null, name: "orders", methods: ["get_grouped_limit_orders"] },
   asset: {
     id: null,
     name: "asset",
-    methods: ["get_asset_holders", "get_all_asset_holders"]
+    methods: ["get_asset_holders", "get_all_asset_holders"],
   },
   history: {
     id: null,
@@ -37,8 +37,8 @@ export const APIs = {
       "get_relative_account_history",
       "get_fill_order_history",
       "get_market_history",
-      "get_market_history_buckets"
-    ]
+      "get_market_history_buckets",
+    ],
   },
   crypto: {
     id: null,
@@ -50,9 +50,9 @@ export const APIs = {
       "range_proof_sign",
       "verify_sum",
       "verify_range",
-      "verify_range_proof_rewind"
-    ]
-  }
+      "verify_range_proof_rewind",
+    ],
+  },
 };
 
 const sortAPIbyCountMethods = Object.keys(APIs)

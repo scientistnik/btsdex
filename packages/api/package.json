@@ -10,7 +10,11 @@
     "browserify": "browserify lib/index.js --standalone btsdex-api -o build/btsdex-api.js -d",
     "minify": "minify build/btsdex-api.js -o  build/btsdex-api.min.js",
     "dev": "nodemon --exec yarn build --watch src",
-    "test": "mocha --require @babel/register"
+    "test": "mocha --require @babel/register",
+    "style": "prettier --check src"
+  },
+  "prettier": {
+    "arrowParens": "avoid"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
@@ -21,7 +25,8 @@
     "babel-minify": "^0.5.1",
     "browserify": "^16.5.0",
     "mocha": "^6.2.2",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "prettier": "2.6.1"
   },
   "dependencies": {
     "isomorphic-ws": "^4.0.1",

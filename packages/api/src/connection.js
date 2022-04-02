@@ -12,7 +12,7 @@ var ws,
     promise: Promise.resolve(),
     resolve: null,
     reject: null,
-    result: true
+    result: true,
   },
   notifyCallback = () => false,
   responseTimeout = 5000,
@@ -43,10 +43,12 @@ export const connect = (
       : new Promise((resolve, reject) => {
           debug("call connect");
 
-          const clearAfter = (method, result) => (...args) => {
-            method(...args);
-            conn.result = result;
-          };
+          const clearAfter =
+            (method, result) =>
+            (...args) => {
+              method(...args);
+              conn.result = result;
+            };
 
           conn.result = null;
           conn.resolve = clearAfter(resolve, true);
@@ -83,10 +85,12 @@ export const disconnect = () =>
 
           reconnectTimeout = null;
           if (ws) {
-            const clearAfter = (method, result) => (...args) => {
-              method(...args);
-              disconn.result = result;
-            };
+            const clearAfter =
+              (method, result) =>
+              (...args) => {
+                method(...args);
+                disconn.result = result;
+              };
 
             disconn.result = null;
             disconn.resolve = clearAfter(resolve, true);
@@ -173,7 +177,7 @@ export const fetch = (method, params) =>
         clearTimeout(timeout);
         resolve(response);
       },
-      reject
+      reject,
     };
 
     if (METHODS_WITH_CALLBACK.includes(params[1])) {
@@ -186,7 +190,7 @@ export const fetch = (method, params) =>
         id: sent.length,
         jsonrpc: "2.0",
         method,
-        params
+        params,
       })
     );
     sent[sent.length++] = callbacks;

@@ -130,10 +130,7 @@ class TransactionBuilder {
     if (!this.tr_buffer) {
       throw new Error("not finalized");
     }
-    return hash
-      .sha256(this.tr_buffer)
-      .toString("hex")
-      .substring(0, 40);
+    return hash.sha256(this.tr_buffer).toString("hex").substring(0, 40);
   }
 
   /**
@@ -245,7 +242,7 @@ class TransactionBuilder {
   /* optional: fetch the current head block */
 
   update_head_block() {
-    return database.getObjects(["2.0.0", "2.1.0"]).then(function(res) {
+    return database.getObjects(["2.0.0", "2.1.0"]).then(function (res) {
       let [g, r] = res;
       head_block_time_string = r[0].time;
       committee_min_review = g[0].parameters.committee_proposal_review_period;
@@ -348,7 +345,7 @@ class TransactionBuilder {
           if (!potentialDuplicates[key])
             potentialDuplicates[key] = {
               original: i,
-              duplicates: []
+              duplicates: [],
             };
           else {
             potentialDuplicates[key].duplicates.push(i);
@@ -492,7 +489,7 @@ class TransactionBuilder {
               proposalFeeMap[i][propFeeAsset] = {
                 total: 0,
                 ops: [i],
-                propIdx: []
+                propIdx: [],
               };
 
             proposalFeeMap[i] = updateFeeMap(
@@ -608,8 +605,8 @@ class TransactionBuilder {
     var tr_object = ops.signed_transaction.toObject(this);
     return Promise.all([
       database.getPotentialSignatures(tr_object),
-      database.getPotentialAddressSignatures(tr_object)
-    ]).then(function(results) {
+      database.getPotentialAddressSignatures(tr_object),
+    ]).then(function (results) {
       return { pubkeys: results[0], addys: results[1] };
     });
   }
@@ -622,7 +619,7 @@ class TransactionBuilder {
     //DEBUG console.log('... tr_object',tr_object)
     return database
       .getRequiredSignatures(tr_object, available_keys)
-      .then(function(required_public_keys) {
+      .then(function (required_public_keys) {
         //DEBUG console.log('... get_required_signatures',required_public_keys)
         return required_public_keys;
       });
@@ -721,10 +718,10 @@ function _broadcast(was_broadcast_callback) {
     var tr_object = ops.signed_transaction.toObject(this);
     // console.log('... broadcast_transaction_with_callback !!!')
     network
-      .broadcastTransactionWithCallback(function(res) {
+      .broadcastTransactionWithCallback(function (res) {
         return resolve(res);
       }, tr_object)
-      .then(function() {
+      .then(function () {
         //console.log('... broadcast success, waiting for callback')
         if (was_broadcast_callback) was_broadcast_callback();
         return;

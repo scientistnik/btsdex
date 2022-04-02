@@ -49,7 +49,7 @@ const operations = [
   "asset_claim_fees",
   "fba_distribute", // VIRTUAL
   "bid_collateral",
-  "execute_bid"
+  "execute_bid",
 ];
 
 export default class Fees {

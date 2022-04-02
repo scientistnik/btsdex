@@ -57,5 +57,5 @@ export default new Proxy(Account, {
     return /^1\.2\.\d+$/.test(name) || !isNaN(name)
       ? obj.id(name)
       : obj.getAccout(name);
-  }
+  },
 });
