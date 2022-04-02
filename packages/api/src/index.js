@@ -6,7 +6,7 @@ import {
   connect,
   disconnect,
   getStatus,
-  setNotifyStatusCallback
+  setNotifyStatusCallback,
 } from "./connection";
 
 export {
@@ -16,7 +16,7 @@ export {
   connect,
   disconnect,
   getStatus,
-  setNotifyStatusCallback
+  setNotifyStatusCallback,
 };
 
 const getAPI = name =>
@@ -34,7 +34,7 @@ const getAPI = name =>
 
         return fetch("call", [id, method, args]);
       };
-    }
+    },
   });
 
 export const database = getAPI("database");

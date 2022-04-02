@@ -18,7 +18,7 @@ class Event {
     if (!this.connected.map.all)
       this.connected.map.all = {
         subs: new Set([undefined]),
-        events: [undefined]
+        events: [undefined],
       };
     else this.connected.map.all.events.push(undefined);
     this.connected.notify();
@@ -50,12 +50,9 @@ class Event {
       }
 
       if (!obj.history)
-        obj.history = (await history.getAccountHistory(
-          obj.id,
-          "1.11.0",
-          1,
-          "1.11.0"
-        ))[0].id;
+        obj.history = (
+          await history.getAccountHistory(obj.id, "1.11.0", 1, "1.11.0")
+        )[0].id;
     });
   }
 

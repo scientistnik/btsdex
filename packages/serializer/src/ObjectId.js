@@ -51,11 +51,7 @@ class ObjectId {
   toLong() {
     return Long.fromNumber(this.space)
       .shiftLeft(56)
-      .or(
-        Long.fromNumber(this.type)
-          .shiftLeft(48)
-          .or(this.instance)
-      );
+      .or(Long.fromNumber(this.type).shiftLeft(48).or(this.instance));
   }
 
   appendByteBuffer(b) {

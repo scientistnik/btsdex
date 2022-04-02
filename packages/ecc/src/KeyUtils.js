@@ -42,12 +42,12 @@ const key = {
     var checksum_string = [
       iterations,
       salt.toString("hex"),
-      checksum.slice(0, 4).toString("hex")
+      checksum.slice(0, 4).toString("hex"),
     ].join(",");
 
     return {
       aes_private: Aes.fromSeed(secret),
-      checksum: checksum_string
+      checksum: checksum_string,
     };
   },
 
@@ -100,7 +100,7 @@ const key = {
     return sha256(Buffer.concat(hash_array));
   },
 
-  suggest_brain_key: function(
+  suggest_brain_key: function (
     dictionary = ",",
     entropy = this.browserEntropy()
   ) {
@@ -213,10 +213,10 @@ const key = {
       Address.fromPublic(public_key, true, 0).toString(address_prefix), // btc_compressed
       Address.fromPublic(public_key, false, 56).toString(address_prefix), // pts_uncompressed
       Address.fromPublic(public_key, true, 56).toString(address_prefix), // pts_compressed
-      public_key.toAddressString(address_prefix) // bts_short, most recent format
+      public_key.toAddressString(address_prefix), // bts_short, most recent format
     ];
     return address_string;
-  }
+  },
 };
 
 export default key;

@@ -2,7 +2,7 @@ var logger = {
   info: null,
   warn: null,
   error: console.error,
-  debug: null
+  debug: null,
 };
 
 export const setLogger = (obj = logger) => {

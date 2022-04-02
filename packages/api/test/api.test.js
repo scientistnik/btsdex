@@ -4,8 +4,8 @@ setLogger();
 
 const server = "wss://btsws.roelandp.nl/ws";
 
-describe("API", function() {
-  describe("database", function() {
+describe("API", function () {
+  describe("database", function () {
     before(() => connect(server));
     after(disconnect);
 
@@ -18,7 +18,7 @@ describe("API", function() {
         throw new Error("Expected object with id 2.0.0");
     });
 
-    it("setSubscribeCallback", async function() {
+    it("setSubscribeCallback", async function () {
       this.timeout(10000);
 
       return new Promise(async (resolve, reject) => {
@@ -32,7 +32,7 @@ describe("API", function() {
       });
     });
 
-    it("setBlockAppliedCallback", function() {
+    it("setBlockAppliedCallback", function () {
       this.timeout(5000);
 
       return new Promise(async resolve => {

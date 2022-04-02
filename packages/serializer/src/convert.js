@@ -1,7 +1,7 @@
 import ByteBuffer from "bytebuffer";
 const Buffer = require("safe-buffer").Buffer;
 
-export default function(type) {
+export default function (type) {
   return {
     fromHex(hex) {
       var b = ByteBuffer.fromHex(hex, ByteBuffer.LITTLE_ENDIAN);
@@ -32,11 +32,11 @@ export default function(type) {
 
     toBinary(object) {
       return toByteBuffer(type, object).toBinary();
-    }
+    },
   };
 }
 
-var toByteBuffer = function(type, object) {
+var toByteBuffer = function (type, object) {
   var b = new ByteBuffer(ByteBuffer.DEFAULT_CAPACITY, ByteBuffer.LITTLE_ENDIAN);
   type.appendByteBuffer(b, object);
   return b.copy(0, b.offset);

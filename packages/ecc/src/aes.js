@@ -34,9 +34,7 @@ class Aes {
     assert.equal(
       hash.length,
       128,
-      `A Sha512 in HEX should be 128 characters long, instead got ${
-        hash.length
-      }`
+      `A Sha512 in HEX should be 128 characters long, instead got ${hash.length}`
     );
     var iv = encHex.parse(hash.substring(64, 96));
     var key = encHex.parse(hash.substring(0, 64));
@@ -90,7 +88,7 @@ class Aes {
       Buffer.concat([
         // A null or empty string nonce will not effect the hash
         Buffer.from("" + nonce),
-        Buffer.from(S.toString("hex"))
+        Buffer.from(S.toString("hex")),
       ])
     );
 
@@ -146,7 +144,7 @@ class Aes {
       Buffer.concat([
         // A null or empty string nonce will not effect the hash
         Buffer.from("" + nonce),
-        Buffer.from(S.toString("hex"))
+        Buffer.from(S.toString("hex")),
       ])
     );
     // DEBUG console.log('... S',S.toString('hex'))
@@ -161,7 +159,7 @@ class Aes {
     // https://code.google.com/p/crypto-js/#Custom_Key_and_IV
     // see wallet_records.cpp master_key::decrypt_key
     return AES.decrypt({ ciphertext: cipher, salt: null }, this.key, {
-      iv: this.iv
+      iv: this.iv,
     });
   }
 

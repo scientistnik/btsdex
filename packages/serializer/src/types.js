@@ -34,7 +34,7 @@ Types.uint8 = {
     }
     v.require_range(0, 0xff, object, `uint8 ${object}`);
     return parseInt(object);
-  }
+  },
 };
 
 Types.uint16 = {
@@ -56,7 +56,7 @@ Types.uint16 = {
     }
     v.require_range(0, 0xffff, object, `uint16 ${object}`);
     return parseInt(object);
-  }
+  },
 };
 
 Types.uint32 = {
@@ -78,7 +78,7 @@ Types.uint32 = {
     }
     v.require_range(0, 0xffffffff, object, `uint32 ${object}`);
     return parseInt(object);
-  }
+  },
 };
 
 var MIN_SIGNED_32 = -1 * Math.pow(2, 31);
@@ -103,7 +103,7 @@ Types.varint32 = {
     }
     v.require_range(MIN_SIGNED_32, MAX_SIGNED_32, object, `uint32 ${object}`);
     return parseInt(object);
-  }
+  },
 };
 
 Types.int64 = {
@@ -125,7 +125,7 @@ Types.int64 = {
     }
     v.required(object);
     return v.to_long(object).toString();
-  }
+  },
 };
 
 Types.uint64 = {
@@ -144,7 +144,7 @@ Types.uint64 = {
       return "0";
     }
     return v.to_long(object, undefined, true).toString();
-  }
+  },
 };
 
 Types.string = {
@@ -169,10 +169,10 @@ Types.string = {
       return "";
     }
     return object.toString();
-  }
+  },
 };
 
-Types.bytes = function(size) {
+Types.bytes = function (size) {
   return {
     fromByteBuffer(b) {
       if (size === undefined) {
@@ -203,14 +203,14 @@ Types.bytes = function(size) {
     },
     toObject(object, debug = {}) {
       if (debug.use_default && object === undefined) {
-        var zeros = function(num) {
+        var zeros = function (num) {
           return new Array(num).join("00");
         };
         return zeros(size);
       }
       v.required(object);
       return object.toString("hex");
-    }
+    },
   };
 };
 
@@ -231,7 +231,7 @@ Types.bool = {
       return false;
     }
     return JSON.parse(object) ? true : false;
-  }
+  },
 };
 
 Types.void = {
@@ -249,10 +249,10 @@ Types.void = {
       return undefined;
     }
     throw new Error("(void) undefined type");
-  }
+  },
 };
 
-Types.array = function(st_operation) {
+Types.array = function (st_operation) {
   return {
     fromByteBuffer(b) {
       var size = b.readVarint32();
@@ -297,7 +297,7 @@ Types.array = function(st_operation) {
         result.push(st_operation.toObject(o, debug));
       }
       return result;
-    }
+    },
   };
 };
 
@@ -340,10 +340,10 @@ Types.time_point_sec = {
     var int = parseInt(object);
     v.require_range(0, 0xffffffff, int, `uint32 ${object}`);
     return new Date(int * 1000).toISOString().split(".")[0];
-  }
+  },
 };
 
-Types.set = function(st_operation) {
+Types.set = function (st_operation) {
   return {
     validate(array) {
       var dup_map = {};
@@ -422,14 +422,14 @@ Types.set = function(st_operation) {
           return result;
         })()
       );
-    }
+    },
   };
 };
 
 // global_parameters_update_operation current_fees
-Types.fixed_array = function(count, st_operation) {
+Types.fixed_array = function (count, st_operation) {
   return {
-    fromByteBuffer: function(b) {
+    fromByteBuffer: function (b) {
       var i, j, ref, results;
       results = [];
       for (i = j = 0, ref = count; j < ref; i = j += 1) {
@@ -437,7 +437,7 @@ Types.fixed_array = function(count, st_operation) {
       }
       return sortOperation(results, st_operation);
     },
-    appendByteBuffer: function(b, object) {
+    appendByteBuffer: function (b, object) {
       var i, j, ref;
       if (count !== 0) {
         v.required(object);
@@ -447,7 +447,7 @@ Types.fixed_array = function(count, st_operation) {
         st_operation.appendByteBuffer(b, object[i]);
       }
     },
-    fromObject: function(object) {
+    fromObject: function (object) {
       var i, j, ref, results;
       if (count !== 0) {
         v.required(object);
@@ -458,7 +458,7 @@ Types.fixed_array = function(count, st_operation) {
       }
       return results;
     },
-    toObject: function(object, debug) {
+    toObject: function (object, debug) {
       var i, j, k, ref, ref1, results, results1;
       if (debug == null) {
         debug = {};
@@ -478,13 +478,13 @@ Types.fixed_array = function(count, st_operation) {
         results1.push(st_operation.toObject(object[i], debug));
       }
       return results1;
-    }
+    },
   };
 };
 
 /* Supports instance numbers (11) or object types (1.2.11).  Object type
 Validation is enforced when an object type is used. */
-var id_type = function(reserved_spaces, object_type) {
+var id_type = function (reserved_spaces, object_type) {
   v.required(reserved_spaces, "reserved_spaces");
   v.required(object_type, "object_type");
   return {
@@ -527,11 +527,11 @@ var id_type = function(reserved_spaces, object_type) {
       }
 
       return `${reserved_spaces}.${object_type_id}.` + object;
-    }
+    },
   };
 };
 
-Types.protocol_id_type = function(name) {
+Types.protocol_id_type = function (name) {
   v.required(name, "name");
   return id_type(ChainTypes.reserved_spaces.protocol_ids, name);
 };
@@ -566,7 +566,7 @@ Types.object_id_type = {
     }
     object = ObjectId.fromString(object);
     return object.toString();
-  }
+  },
 };
 
 Types.vote_id = {
@@ -576,7 +576,7 @@ Types.vote_id = {
     var value = b.readUint32();
     return {
       type: value & this.TYPE,
-      id: value & this.ID
+      id: value & this.ID,
     };
   },
   appendByteBuffer(b, object) {
@@ -613,10 +613,10 @@ Types.vote_id = {
     if (typeof a !== "object") a = Types.vote_id.fromObject(a);
     if (typeof b !== "object") b = Types.vote_id.fromObject(b);
     return parseInt(a.id) - parseInt(b.id);
-  }
+  },
 };
 
-Types.optional = function(st_operation) {
+Types.optional = function (st_operation) {
   v.required(st_operation, "st_operation");
   return {
     fromByteBuffer(b) {
@@ -658,11 +658,11 @@ Types.optional = function(st_operation) {
         }
       }
       return result_object;
-    }
+    },
   };
 };
 
-Types.extension = function(fields_def) {
+Types.extension = function (fields_def) {
   // fields_def is an array
   v.require_array(fields_def, r => {
     v.string(r.name);
@@ -753,11 +753,11 @@ Types.extension = function(fields_def) {
         }
       }
       return result_object;
-    }
+    },
   };
 };
 
-Types.static_variant = function(_st_operations) {
+Types.static_variant = function (_st_operations) {
   return {
     nosort: true,
     st_operations: _st_operations,
@@ -797,11 +797,11 @@ Types.static_variant = function(_st_operations) {
       var st_operation = this.st_operations[type_id];
       v.required(st_operation, `operation ${type_id}`);
       return [type_id, st_operation.toObject(object[1], debug)];
-    }
+    },
   };
 };
 
-Types.map = function(key_st_operation, value_st_operation) {
+Types.map = function (key_st_operation, value_st_operation) {
   return {
     validate(array) {
       if (!Array.isArray(array)) {
@@ -830,7 +830,7 @@ Types.map = function(key_st_operation, value_st_operation) {
       for (var i = 0; 0 < end ? i < end : i > end; 0 < end ? i++ : i++) {
         result.push([
           key_st_operation.fromByteBuffer(b),
-          value_st_operation.fromByteBuffer(b)
+          value_st_operation.fromByteBuffer(b),
         ]);
       }
       return this.validate(result);
@@ -853,7 +853,7 @@ Types.map = function(key_st_operation, value_st_operation) {
         o = object[i];
         result.push([
           key_st_operation.fromObject(o[0]),
-          value_st_operation.fromObject(o[1])
+          value_st_operation.fromObject(o[1]),
         ]);
       }
       return this.validate(result);
@@ -863,8 +863,8 @@ Types.map = function(key_st_operation, value_st_operation) {
         return [
           [
             key_st_operation.toObject(undefined, debug),
-            value_st_operation.toObject(undefined, debug)
-          ]
+            value_st_operation.toObject(undefined, debug),
+          ],
         ];
       }
       v.required(object);
@@ -874,11 +874,11 @@ Types.map = function(key_st_operation, value_st_operation) {
         o = object[i];
         result.push([
           key_st_operation.toObject(o[0], debug),
-          value_st_operation.toObject(o[1], debug)
+          value_st_operation.toObject(o[1], debug),
         ]);
       }
       return result;
-    }
+    },
   };
 };
 
@@ -923,7 +923,7 @@ Types.public_key = {
       .fromObject(a)
       .toBlockchainAddress()
       .compare(Types.public_key.fromObject(b).toBlockchainAddress());
-  }
+  },
 };
 
 Types.address = {
@@ -952,7 +952,7 @@ Types.address = {
   },
   compare(a, b) {
     return strCmp(a.toString(), b.toString());
-  }
+  },
 };
 
 let strCmp = (a, b) => (a > b ? 1 : a < b ? -1 : 0);

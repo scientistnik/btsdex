@@ -17,7 +17,7 @@ import {
   block,
   asset,
   orders,
-  call
+  call,
 } from "btsdex-api";
 
 const getExpireDate = () => {
@@ -69,11 +69,7 @@ class BitShares {
   }
 
   static async reconnect(node, autoreconnect) {
-    BitShares.chain = await connect(
-      node,
-      undefined,
-      autoreconnect
-    );
+    BitShares.chain = await connect(node, undefined, autoreconnect);
     setAddressPrefix(BitShares.chain.addressPrefix);
     BitShares.node = node;
 
@@ -228,7 +224,7 @@ class BitShares {
 
     this.initPromise = Promise.all([
       BitShares.accounts[accountName],
-      BitShares.assets[feeSymbol]
+      BitShares.assets[feeSymbol],
     ]).then(params => {
       [this.account, this.feeAsset] = params;
     });
@@ -287,7 +283,7 @@ class BitShares {
       min_to_receive: buyAsset.toParam(buyAmount),
       fill_or_kill,
       expiration,
-      extensions
+      extensions,
     };
 
     return { limit_order_create: params };
@@ -328,7 +324,7 @@ class BitShares {
       min_to_receive: buyAsset.toParam(buyAmount),
       expiration: expire,
       fill_or_kill: fill_or_kill,
-      extensions: []
+      extensions: [],
     };
 
     return { limit_order_create: params };
@@ -367,7 +363,7 @@ class BitShares {
       min_to_receive: baseAsset.toParam(buyAmount),
       expiration: expire,
       fill_or_kill: fill_or_kill,
-      extensions: []
+      extensions: [],
     };
 
     return { limit_order_create: params };
@@ -396,7 +392,7 @@ class BitShares {
       fee: this.feeAsset.toParam(),
       fee_paying_account: this.account.id,
       order: id,
-      extensions: []
+      extensions: [],
     };
 
     return { limit_order_cancel: params };
@@ -421,7 +417,7 @@ class BitShares {
         to,
         nonce,
         new Buffer(message, "utf-8")
-      )
+      ),
     };
   };
 
@@ -449,7 +445,7 @@ class BitShares {
       from: this.account.id,
       to: (await BitShares.accounts[toName]).id,
       amount: asset.toParam(intAmount),
-      extensions: []
+      extensions: [],
     };
 
     if (memo)
@@ -475,7 +471,7 @@ class BitShares {
       fee: this.feeAsset.toParam(),
       issuer: this.account.id,
       asset_to_issue: asset.toParam(intAmount),
-      issue_to_account: (await BitShares.accounts[toName]).id
+      issue_to_account: (await BitShares.accounts[toName]).id,
     };
 
     if (memo)
@@ -503,7 +499,7 @@ class BitShares {
       fee: this.feeAsset.toParam(),
       amount_to_reserve: asset.toParam(intAmount),
       payer,
-      extensions: []
+      extensions: [],
     };
 
     return { asset_reserve: params };
