@@ -10,7 +10,7 @@ var MIN_SAFE_INT = -9007199254740991;
     Validations support a string format for dealing with large numbers.
 */
 var _my = {
-  is_empty: function(value) {
+  is_empty: function (value) {
     return value === null || value === undefined;
   },
 
@@ -20,7 +20,7 @@ var _my = {
     }
     return value;
   },
-  require_array: function(value, instance_require) {
+  require_array: function (value, instance_require) {
     if (!(value instanceof Array)) {
       throw new Error(`array required`);
     }
@@ -78,14 +78,14 @@ var _my = {
     return value;
   },
 
-  is_digits: function(value) {
+  is_digits: function (value) {
     if (typeof value === "numeric") {
       return true;
     }
     return /^[0-9]+$/.test(value);
   },
 
-  to_number: function(value, field_name = "") {
+  to_number: function (value, field_name = "") {
     if (this.is_empty(value)) {
       return value;
     }
@@ -142,7 +142,7 @@ var _my = {
     return value;
   },
 
-  require_match: function(regex, value, field_name = "") {
+  require_match: function (regex, value, field_name = "") {
     if (this.is_empty(value)) {
       return value;
     }
@@ -153,7 +153,7 @@ var _my = {
     return match;
   },
 
-  require_object_id: function(value, field_name) {
+  require_object_id: function (value, field_name) {
     return require_match(/^([0-9]+)\.([0-9]+)\.([0-9]+)$/, value, field_name);
   },
 
@@ -169,7 +169,7 @@ var _my = {
     return value;
   },
 
-  require_object_type: function(
+  require_object_type: function (
     reserved_spaces = 1,
     type,
     value,
@@ -193,7 +193,7 @@ var _my = {
     return value;
   },
 
-  get_instance: function(reserve_spaces, type, value, field_name) {
+  get_instance: function (reserve_spaces, type, value, field_name) {
     if (this.is_empty(value)) {
       return value;
     }
@@ -201,12 +201,12 @@ var _my = {
     return this.to_number(value.split(".")[2]);
   },
 
-  require_relative_type: function(type, value, field_name) {
+  require_relative_type: function (type, value, field_name) {
     this.require_object_type(0, type, value, field_name);
     return value;
   },
 
-  get_relative_instance: function(type, value, field_name) {
+  get_relative_instance: function (type, value, field_name) {
     if (this.is_empty(value)) {
       return value;
     }
@@ -214,12 +214,12 @@ var _my = {
     return this.to_number(value.split(".")[2]);
   },
 
-  require_protocol_type: function(type, value, field_name) {
+  require_protocol_type: function (type, value, field_name) {
     this.require_object_type(1, type, value, field_name);
     return value;
   },
 
-  get_protocol_instance: function(type, value, field_name) {
+  get_protocol_instance: function (type, value, field_name) {
     if (this.is_empty(value)) {
       return value;
     }
@@ -227,7 +227,7 @@ var _my = {
     return this.to_number(value.split(".")[2]);
   },
 
-  get_protocol_type: function(value, field_name) {
+  get_protocol_type: function (value, field_name) {
     if (this.is_empty(value)) {
       return value;
     }
@@ -244,12 +244,12 @@ var _my = {
     return Object.keys(ChainTypes.object_type)[type_id];
   },
 
-  require_implementation_type: function(type, value, field_name) {
+  require_implementation_type: function (type, value, field_name) {
     this.require_object_type(2, type, value, field_name);
     return value;
   },
 
-  get_implementation_instance: function(type, value, field_name) {
+  get_implementation_instance: function (type, value, field_name) {
     if (this.is_empty(value)) {
       return value;
     }
@@ -321,7 +321,7 @@ var _my = {
     }
 
     throw `unsupported type ${field_name}: (${typeof value}) ${value}`;
-  }
+  },
 };
 
 export default _my;

@@ -6,9 +6,7 @@ import createHmac from "create-hmac";
     @return {string|Buffer} - Buffer when digest is null, or string
 */
 function sha1(data, encoding) {
-  return createHash("sha1")
-    .update(data)
-    .digest(encoding);
+  return createHash("sha1").update(data).digest(encoding);
 }
 
 /** @arg {string|Buffer} data
@@ -16,9 +14,7 @@ function sha1(data, encoding) {
     @return {string|Buffer} - Buffer when digest is null, or string
 */
 function sha256(data, encoding) {
-  return createHash("sha256")
-    .update(data)
-    .digest(encoding);
+  return createHash("sha256").update(data).digest(encoding);
 }
 
 /** @arg {string|Buffer} data
@@ -26,21 +22,15 @@ function sha256(data, encoding) {
     @return {string|Buffer} - Buffer when digest is null, or string
 */
 function sha512(data, encoding) {
-  return createHash("sha512")
-    .update(data)
-    .digest(encoding);
+  return createHash("sha512").update(data).digest(encoding);
 }
 
 function HmacSHA256(buffer, secret) {
-  return createHmac("sha256", secret)
-    .update(buffer)
-    .digest();
+  return createHmac("sha256", secret).update(buffer).digest();
 }
 
 function ripemd160(data) {
-  return createHash("rmd160")
-    .update(data)
-    .digest();
+  return createHash("rmd160").update(data).digest();
 }
 
 // function hash160(buffer) {

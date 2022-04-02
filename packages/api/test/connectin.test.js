@@ -2,20 +2,17 @@ import {
   setLogger,
   connect,
   disconnect,
-  setNotifyStatusCallback
+  setNotifyStatusCallback,
 } from "../lib";
 
 setLogger({ info: console.log, debug: console.log });
 
-const servers = [
-    "wss://dex.iobanker.com/ws",
-    "wss://btsws.roelandp.nl/ws"
-  ],
+const servers = ["wss://dex.iobanker.com/ws", "wss://btsws.roelandp.nl/ws"],
   timeout = 5000,
   reconnectTimeout = 500;
 
-describe("Connection", function() {
-  describe("connect()", function() {
+describe("Connection", function () {
+  describe("connect()", function () {
     afterEach(() => disconnect().catch(() => {}));
 
     it("without params", done => {
@@ -29,20 +26,16 @@ describe("Connection", function() {
     it("with one server", () => connect(servers[0]));
     it("with several servers", () => connect(servers));
 
-    it("with timeout", function(done) {
+    it("with timeout", function (done) {
       this.timeout(5000);
-      connect(
-        servers,
-        0,
-        null
-      )
+      connect(servers, 0, null)
         .then(() => {
           throw new Error("Timeout doesn't work");
         })
         .catch(() => done());
     });
 
-    it.only("with reconnect timeout", function(done) {
+    it.only("with reconnect timeout", function (done) {
       let countStatuses = 0;
       setNotifyStatusCallback(status => {
         status === "closed" && countStatuses++;
@@ -55,19 +48,11 @@ describe("Connection", function() {
 
         return false;
       });
-      connect(
-        servers,
-        0,
-        100
-      ).catch(error => error);
+      connect(servers, 0, 100).catch(error => error);
     });
 
     it("call several times", done => {
-      let p1 = connect(
-        servers,
-        timeout,
-        reconnectTimeout
-      );
+      let p1 = connect(servers, timeout, reconnectTimeout);
       let p2 = connect(servers);
       let p3 = connect(servers);
 
@@ -79,13 +64,7 @@ describe("Connection", function() {
   });
 
   describe("disconnect()", () => {
-    before(() =>
-      connect(
-        servers,
-        timeout,
-        5000
-      )
-    );
+    before(() => connect(servers, timeout, 5000));
 
     it("disconnect two times", async () => {
       await disconnect();
@@ -101,11 +80,7 @@ describe("Connection", function() {
     afterEach(disconnect);
 
     it("connect -> disconnect", async () => {
-      let c = connect(
-        servers,
-        timeout,
-        5000
-      );
+      let c = connect(servers, timeout, 5000);
       let d = disconnect();
 
       await c;

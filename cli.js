@@ -6,11 +6,11 @@ const repl = require("repl"),
   Writable = require("stream").Writable;
 
 var mutableStdout = new Writable({
-  write: function(chunk, encoding, callback) {
+  write: function (chunk, encoding, callback) {
     if (!this.muted) process.stdout.write(chunk, encoding);
     else process.stdout.write(Buffer.from("*", "utf-8"), encoding);
     callback();
-  }
+  },
 });
 
 function initializeContext(context) {
@@ -121,7 +121,7 @@ if (process.argv.includes("--account")) {
     rl = readline.createInterface({
       input: process.stdin,
       output: mutableStdout,
-      terminal: true
+      terminal: true,
     });
 
     mutableStdout.muted = false;

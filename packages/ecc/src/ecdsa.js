@@ -72,7 +72,7 @@ function sign(curve, hash, d, nonce) {
     curve,
     hash,
     d,
-    function(k) {
+    function (k) {
       // find canonically valid signature
       let Q = G.multiply(k);
 
@@ -222,5 +222,5 @@ export {
   recoverPubKey,
   sign,
   verify,
-  verifyRaw
+  verifyRaw,
 };

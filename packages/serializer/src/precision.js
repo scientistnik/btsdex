@@ -66,7 +66,7 @@ const _internal = {
     }
 
     return sign + int_part + decimal_part;
-  }
+  },
 };
 
 _my = {
@@ -96,7 +96,7 @@ _my = {
     return string64;
   },
 
-  _internal
+  _internal,
 };
 
 export default _my;

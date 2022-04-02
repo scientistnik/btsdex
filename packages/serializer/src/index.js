@@ -15,5 +15,5 @@ export {
   template,
   SerializerValidation,
   ChainTypes,
-  ObjectId
+  ObjectId,
 };

@@ -18,5 +18,5 @@ export {
   hash,
   key,
   setAddressPrefix,
-  getAddressPrefix
+  getAddressPrefix,
 };

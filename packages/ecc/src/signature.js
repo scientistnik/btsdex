@@ -123,7 +123,7 @@ class Signature {
       hash,
       {
         r: this.r,
-        s: this.s
+        s: this.s,
       },
       public_key.Q
     );
