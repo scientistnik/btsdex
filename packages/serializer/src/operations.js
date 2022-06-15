@@ -1401,8 +1401,8 @@ export const restriction = new Serializer("restriction", {
     set(protocol_id_type("vesting_balance")),
     set(protocol_id_type("worker")),
     set(protocol_id_type("balance")),
-    array(restriction),
-    array(array(restriction)),
+//    array(restriction),
+//    array(array(restriction)),
     // fixme: pair<int64_t,std_vector<graphene::protocol::restriction>>
   ]),
   extensions: set(future_extensions),
