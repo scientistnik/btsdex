@@ -148,22 +148,22 @@ Types.uint64 = {
 };
 
 Types.varuint64 = {
-    fromByteBuffer(b) {
-        return b.readVarint64();
-    },
-    appendByteBuffer(b, object) {
-        b.writeVarint64(v.to_long(v.unsigned(object), undefined, true));
-        return;
-    },
-    fromObject(object) {
-        return v.to_long(v.unsigned(object), undefined, true);
-    },
-    toObject(object, debug = {}) {
-        if (debug.use_default && object === undefined) {
-            return "0";
-        }
-        return v.to_long(object, undefined, true).toString();
+  fromByteBuffer(b) {
+    return b.readVarint64();
+  },
+  appendByteBuffer(b, object) {
+    b.writeVarint64(v.to_long(v.unsigned(object), undefined, true));
+    return;
+  },
+  fromObject(object) {
+    return v.to_long(v.unsigned(object), undefined, true);
+  },
+  toObject(object, debug = {}) {
+    if (debug.use_default && object === undefined) {
+      return "0";
     }
+    return v.to_long(object, undefined, true).toString();
+  },
 };
 
 Types.string = {
