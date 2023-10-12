@@ -22,7 +22,7 @@ Include [this](https://github.com/scientistnik/btsdex/releases) in html-file:
 ```
 <script src="btsdex.min.js"></script>
 ```
-After that in console aviable `BitShares` class.
+After that in console available `BitShares` class.
 
 ## Usage
 
