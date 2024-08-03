@@ -22,7 +22,7 @@ Include [this](https://github.com/scientistnik/btsdex/releases) in html-file:
 ```
 <script src="btsdex.min.js"></script>
 ```
-After that in console aviable `BitShares` class.
+After that in console available `BitShares` class.
 
 ## Usage
 
@@ -387,7 +387,53 @@ let tradebot = await BitShares.accounts["trade-bot"];
 ```
 The returned objects contain all the fields that blockchain returns when the given asset or account name is requested.
 
-### Some examples:
+### Some examples
+The below example can be used to broadcast any transaction to the BitShares Blockchain using API node hence you can use any BitShares Public API node, you will just need to replace parameters under **params** and the operation name **asset_update** in below example with your desired transaction parameters and its operation name. Use the below links to determine your desired operation name and needed parameters along with their required order. Below transaction example serialization can be found here [Serialization](https://github.com/bitshares/btsdex/blob/master/packages/serializer/src/operations.js) as you will need to honor the order of [Operation](https://github.com/bitshares/bitshares-core/blob/master/libraries/protocol/include/graphene/protocol/operations.hpp) parameters along with their sub parameters which are present in below example **new_options** note that some of parameters or sub parameters are optional:
+
+```js
+const BitShares = require("btsdex");
+BitShares.connect("wss://dex.iobanker.com/ws"); # replace wss://dex.iobanker.com/ws with API node if you want to use another BitShares API node
+BitShares.subscribe('connected', startAfterConnected);
+
+async function startAfterConnected() {
+let acc = await new BitShares("username", "password"); # replace with your username and password
+
+# Below are required parameters and structure for the example of operation *asset_update*; every different operation would required different parameters and structure
+
+# Finding what data to use in these parameters would require understanding of how BitShares Blockchain works, for example *issuer* is referred to the ID *1.2.1787259* of owner account of an Asset, use telegram [BitShares Development](https://t.me/BitSharesDEV) group to ask about required parameters.
+
+let params = {
+    fee: {amount: 0, asset_id: "1.3.0"},
+    "issuer":"1.2.1787259",
+    "asset_to_update":"1.3.5537", 
+    "new_options": {
+     "max_supply": "1000000000000000", 
+     "market_fee_percent": 0, 
+     "max_market_fee": "0", 
+     "min_market_fee": 0, 
+     "issuer_permissions": 79, 
+     "flags": 6, 
+     "core_exchange_rate": {
+      "base": {"amount": 500000, "asset_id": "1.3.0"}, 
+      "quote": {"amount": 10000, "asset_id": "1.3.5537"}
+      }, 
+    "whitelist_authorities": [], 
+    "blacklist_authorities": [], 
+    "whitelist_markets": [], 
+    "blacklist_markets": [],
+    "description": "{\"main\":\"Your Asset Info\",\"market\":\"Your Market info\"}", 
+    "extensions": {"taker_fee_percent": 10}
+    }
+}
+
+let tx = acc.newTx();
+tx.asset_update(params); # Replace asset_update with your desired operation name
+await tx.broadcast();
+console.log(tx);
+}
+```
+
+Another example for getting account orders information: 
 
 ```js
 const BitShares = require('btsdex')
@@ -406,6 +452,7 @@ async function startAfterConnected() {
   console.log(order)
 }
 ```
+
 ## Documentation
 For more information, look [wiki](https://scientistnik.github.io/btsdex) or in `docs`-folder.
 

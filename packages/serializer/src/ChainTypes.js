@@ -24,7 +24,7 @@ ChainTypes.object_type = {
   worker: 14,
   balance: 15,
   htlc: 16,
-  custom_active_authorities: 17,
+  custom_active_authorities: 17, // TODO: not active on the main net.
   ticket: 18,
   liquidity_pool: 19,
   samet_fund: 20,
@@ -135,7 +135,10 @@ ChainTypes.operations = {
   credit_offer_update: 71,
   credit_offer_accept: 72,
   credit_deal_repay: 73,
-  credit_deal_expired: 74,
+  credit_deal_expired: 74, // VIRTUAL
+  liquidity_pool_update: 75,
+  credit_deal_update: 76,
+  limit_order_update: 77,
 };
 
 ChainTypes.ticket_type = {
